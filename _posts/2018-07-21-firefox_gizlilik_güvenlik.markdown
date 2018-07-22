@@ -1,7 +1,7 @@
 ---
 title:  "Mozilla Firefox Gizlilik ve Güvenlik Ayarları!"
 author: "Alp Eren Işık"
-image: "img/firefox.jpg"
+image: "img/firefox.png"
 date:   2018-07-21
 ---
 
