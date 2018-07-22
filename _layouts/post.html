@@ -3,8 +3,8 @@ layout: default
 ---
 
 <!-- Page Header -->
-{% if post.image %}
-<header class="masthead" style="background-image: url('{{ post.image | prepend: site.baseurl | replace: '//', '/' }}')">
+{% if page.image %}
+<header class="masthead" style="background-image: url('{{ page.image | prepend: site.baseurl | replace: '//', '/' }}')">
 {% else %}
 <header class="masthead">
 {% endif %}
