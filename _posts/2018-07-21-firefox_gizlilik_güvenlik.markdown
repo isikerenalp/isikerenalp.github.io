@@ -2,7 +2,7 @@
 title:  "Mozilla Firefox Gizlilik ve Güvenlik Ayarları!"
 author: "Alp Eren Işık"
 image: "img/firefox.png"
-date:   2018-07-21
+date:   2018-07-21 12-12-12
 ---
 
     Yapacaklarımız sadece tarayıcımızda güvenlik önlemleri almak içindir , anlatılanlar 100% gizlilik ve güvenliğinizi sağlamayacaktır.
