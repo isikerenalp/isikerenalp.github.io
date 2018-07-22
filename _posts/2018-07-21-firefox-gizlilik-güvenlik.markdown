@@ -1,10 +1,8 @@
 ---
 title:  "Mozilla Firefox Gizlilik ve Güvenlik Ayarları!"
-subtitle: "It's always a bit messy"
 author: "Alp Eren Işık"
 image: "img/firefox.png"
-avatar: "img/authors/wferr.png"
-date:   2018-07-21 12-12-12
+date:   2018-07-21 
 ---
 
     Yapacaklarımız sadece tarayıcımızda güvenlik önlemleri almak içindir , anlatılanlar 100% gizlilik ve güvenliğinizi sağlamayacaktır.
