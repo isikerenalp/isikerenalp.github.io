@@ -70,9 +70,35 @@ date:   2018-07-21
         [query] => v=IQaXTd8Ljg4
       )
 
+
+# parse_str()
+  parse_str() fonksiyonu, bir sorgu dizesini değişkenlere ayrıştırır.
+
+    Örnek 1-)
+    <?php
+      parse_str("name=AlpErenr&age=20");
+        echo $name."<br>";
+          echo $age;
+    ?>
+    // Çıktı
+    AlpEren
+    20
+
 #
 
-    Örnek 3-)
+    Örnek 2-)
+    <?php
+      parse_str("name=AlpEren&age=20",$myArray);
+        print_r($myArray);
+    ?>
+    // Çıktı
+    Array ( [name] => AlpEren [age] => 20 )
+
+
+
+# parse_url && parse_str Örnekleri
+
+    Örnek 1-)
     <?php  
       $url = 'https://www.youtube.com/results?search_query=PauSiber';    
         $parts = parse_url($url);  
@@ -86,7 +112,7 @@ date:   2018-07-21
 
 #
 
-    Örnek 4-)
+    Örnek 2-)
     <?php  
       $url = 'https://ders.im/?q=ders.im&hPP=6&idx=documents&p=0';    
         $parts = parse_url($url);  
