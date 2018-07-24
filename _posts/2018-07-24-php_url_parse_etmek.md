@@ -4,6 +4,10 @@ author: "Alp Eren Işık"
 background: "/img/posts/php.png"
 date:   2018-07-21
 ---
+
+***
+
+
 # parse_url()
   parse_url fonksiyonu PHP4 ve üstü sürümlerde desteklenmektedir. Bu fonksiyon ile istediğimiz URL'i parçalara ayırmamız mümkün. Ayrıca bu fonksiyon bir URL doğrulayıcı olarak kullanılmamalıdır. Yaptığı sadece URL'i birazdan belirteceğim parçalara ayırmaktır.
 
