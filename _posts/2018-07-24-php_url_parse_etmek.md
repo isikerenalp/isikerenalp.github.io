@@ -52,7 +52,9 @@ date:   2018-07-21
         [fragment] => anchor
       )
         /path
-***
+
+#
+
       Örnek 2-)
       <?php
         $url = 'https://www.youtube.com/watch?v=IQaXTd8Ljg4';
@@ -67,7 +69,8 @@ date:   2018-07-21
         [path] => /watch
         [query] => v=IQaXTd8Ljg4
       )
-***
+
+#
 
     Örnek 3-)
     <?php  
@@ -80,7 +83,8 @@ date:   2018-07-21
     // (Sadece Query değerini almış olduk)
     // Çıktı
     v= PauSiber           
-***
+
+#
 
     Örnek 4-)
     <?php  
