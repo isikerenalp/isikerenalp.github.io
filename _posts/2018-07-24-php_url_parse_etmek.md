@@ -76,7 +76,7 @@ date:   2018-07-24
 
     Örnek 1-)
     <?php
-      parse_str("name=AlpErenr&age=20");
+      parse_str("name=AlpEren&age=20");
         echo $name."<br>";
           echo $age;
     ?>
