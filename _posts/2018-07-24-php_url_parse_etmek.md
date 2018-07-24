@@ -90,9 +90,19 @@ date:   2018-07-24
     <?php
       parse_str("name=AlpEren&age=20",$myArray);
         print_r($myArray);
+          print_r($myArray['name']);
+            echo"\n";
+              echo $myArray['age'];
     ?>
     // Çıktı
-    Array ( [name] => AlpEren [age] => 20 )
+          Array
+        (
+            [name] => AlpEren
+            [age] => 20
+        )
+        AlpEren
+        20                                                                             
+
 
 
 
