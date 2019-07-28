@@ -1,8 +1,10 @@
 ---
+layout: post
 title:  "PHP URL Ayrıştırmak (URL Parse Etmek)"
 author: "Alp Eren Işık"
-background: "/img/posts/php.png"
 date:   2018-07-24
+categories: [PHP]
+permalink: /:year/:month/:day/:title:output_ext
 ---
 
 ***

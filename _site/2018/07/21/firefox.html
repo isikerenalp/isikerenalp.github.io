@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <title>Mozilla Firefox Gizlilik ve Güvenlik Ayarları! - Posts</title>
+    <meta name="author" content="Alp Eren Işık" />
+    <meta name="description" content="Mozilla Firefox Gizlilik ve Güvenlik Ayarları!" />
+    <meta name="keywords" content="Mozilla Firefox Gizlilik ve Güvenlik Ayarları!, Posts, firefox" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+    <meta content="" property="fb:app_id">
+    <meta content="Posts" property="og:site_name">
+
+    
+
+    
+      <meta content="Mozilla Firefox Gizlilik ve Güvenlik Ayarları!" property="og:title">
+      <meta content="article" property="og:type">
+    
+
+    
+      <meta content="My Personal Posts" property="og:description">
+    
+
+    
+      <meta content="http://localhost:4000/2018/07/21/firefox.html" property="og:url">
+    
+
+    
+      <meta content="2018-07-21T00:00:00+03:00" property="article:published_time">
+      <meta content="http://localhost:4000/about/" property="article:author">
+    
+
+    
+      <meta content="http://localhost:4000/static/img/profile.png" property="og:image">
+    
+
+    
+      
+        <meta content="firefox" property="article:section">
+      
+    
+
+    
+      
+    
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+
+    
+      <meta name="twitter:title" content="Mozilla Firefox Gizlilik ve Güvenlik Ayarları!">
+    
+
+    
+      <meta name="twitter:url" content="http://localhost:4000/2018/07/21/firefox.html">
+    
+
+    
+      <meta name="twitter:description" content="My Personal Posts">
+    
+
+    
+
+    <!-- Font awesome icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/static/css/syntax.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/super-search.css">
+    <link rel="stylesheet" href="/static/css/thickbox.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-sm-3">
+        <div class="fixed-condition">
+          <a href="/"><img class="profile-avatar" src="/static/img/profile.png" height="75px" width="75px" /></a>
+          <h1 class="author-name">Alp Eren Işık</h1>
+          
+            <div class="profile-about">
+              PauSiber
+            </div>
+          
+          <div class="social">
+            <ul>
+              
+                <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+              
+                <li><a href="https://tr.linkedin.com/in/isikerenalp" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+              
+                <li><a href="https://github.com/isikerenalp" target="_blank"><i class="fa fa-github"></i></a></li>
+              
+            </ul>
+          </div>
+          <div class="search" id="js-search">
+            <input type="text" placeholder="alp@eren~$ " class="search__input form-control" id="js-search__input">
+            <ul class="search__results" id="js-search__results"></ul>
+          </div>
+          <hr />
+          <ul class="sidebar-nav">
+            <li><a href="/">Home</a></li>
+            
+              <li><a class="about" href="/about/">About Me</a></li>
+            
+              <li><a class="about" href="/feed.xml">XML Feed</a></li>
+            
+          </ul>
+        </div>
+        <!-- end /.fixed-condition -->
+      </div>
+      <div class="col-sm-8 col-offset-1 main-layout">
+        <header class="post-header">
+  <h1 class="post-title">Mozilla Firefox Gizlilik ve Güvenlik Ayarları!</h1>
+</header>
+
+<span class="time">21 Jul 2018</span>
+
+  <span class="categories">
+    &raquo; <a href="/category/firefox">firefox</a>
+  </span>
+
+
+<div class="content">
+  <div class="post"><hr />
+
+<p>Yapacaklarımız sadece tarayıcımızda güvenlik önlemleri almak içindir , anlatılanlar 100% gizlilik ve güvenliğinizi sağlamayacaktır.
+  Değişiklik yaptığımız bazı ayarlar web sitelerinin bazı fonksiyonlarının çalışmasını engelleyebilir. Bu yüzden başlangıç olarak yaptığınız değişiklikleri not almanızı öneririm. Yazının sonunda paylaşmış olduğum “Privacy Settings” eklentisi ile ilerde ayarlarınızı hızlıca değiştirebilirsiniz.
+  Adres satırına “about:config” yazarak çıkan uyarıyı onayladıktan sonra ayar sayfamıza gelmiş olacağız.</p>
+
+<hr />
+
+<p><code class="highlighter-rouge">beacon.enabled</code> = Sayfalardan ayrılırken sunuculara veri gönderir. <code class="highlighter-rouge">False</code> olarak değiştirildiğinde bu özellik devre dışı bırakılmış olacaktır.</p>
+
+<p><code class="highlighter-rouge">browser.cache.disk.enable</code> = Önbelleğin diske kayıt yapıp yapmamasını tanımlar. <code class="highlighter-rouge">(Cache Kapatmak)</code>. <code class="highlighter-rouge">False</code> olarak değiştirildiğinde disk önbelleğe kayıt yapmaz ve disk önbellek kullanılmaz.</p>
+
+<p><code class="highlighter-rouge">browser.cache.disk.capacity</code> = Cache açıksa Firefox’un disk önbelleği için kullandığı maksimum alanı belirler. Default değeri <code class="highlighter-rouge">0</code> olarak değiştirilebilir.</p>
+
+<p><code class="highlighter-rouge">browser.cache.offline.enable</code> = Web uygulamaları ve sitelerin , yerel sistemde bir çevrimdışı önbellek kullanıp kullanamayacağını belirler. <code class="highlighter-rouge">(Offline Cache Kapatmak)</code> <code class="highlighter-rouge">False</code> olarak değiştirildiğinde çevrimdışı önbellek devre dışı bırakılmış olacak.</p>
+
+<p><code class="highlighter-rouge">browser.cache.offline.capacity</code> = Çevrimdışı önbellek kapasitesini belirler.</p>
+
+<p><code class="highlighter-rouge">browser.formfill.enable</code> = Web formlarına girilen metinleri kaydedeceğini tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirildiğinde veriler kaydedilmez.</p>
+
+<p><code class="highlighter-rouge">places.history.enabled</code> = Ziyaret edilen sayfaları hatırlayıp hatırlamamasını tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirildiğinde sayfalar kaydedilmeyecektir.</p>
+
+<p><code class="highlighter-rouge">browser.privatebrowsing.autostart</code> = Firefox’un başlangıçta gizli tarama modunda başlatılıp başlatılmayacağını tanımmlar.  <code class="highlighter-rouge">True</code> olarak değiştirildiğinde gizli tarama modu otomatik olarak kullanılacaktır.</p>
+
+<p><code class="highlighter-rouge">browser.safebrowsing.malware.enabled</code> = İndirilen dosyaları veritabanında kötü amaçlı yazılım olup olmadığını tarar. İsteğe göre <code class="highlighter-rouge">FALSE</code> olarak değiştirilebilir.</p>
+
+<p><code class="highlighter-rouge">browser.search.suggest.enabled</code> = Arama önerilerini görüntülemeyi tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirdiğimizde arama önerileri devre dışı olacaktır.</p>
+
+<p><code class="highlighter-rouge">browser.send_pings</code> = Sunucuları tıklanan bağlantılar hakkında bilgilendirir. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">browser.urlbar.autocomplete.enabled</code> = Adres çubuğuna yazarken ki otomatik tamamlama önerilerini yapar. <code class="highlighter-rouge">False</code> olarak değiştirildiğinde otomatik tamamlama kullanılmayacaktır.</p>
+
+<p><code class="highlighter-rouge">browser.urlbar.maxRichResults</code> = Adres çubuğundaki dropdown list şeklinde gelen sonuçları tanımlar. <code class="highlighter-rouge">0</code> olarak değiştirdiğimizde bu sonuçları kapatmış olacağız.</p>
+
+<p><code class="highlighter-rouge">dom.battery.enabled</code> = Web uygulamalarının mobil cihazlarda pil durumuna erişmesini sağlar. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">dom.event.clipboardevents.enabled</code> = Web sitelerinin panoya kopyalanmış öğelere erişip erişemeyeceğini belirler. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">dom.storage.enabled</code> = Web uygulamalarının istemciye(client) depolama yapması. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">geo.enabled</code> = Konum bilgisi. <code class="highlighter-rouge">False</code> olarak değiştirimesi önerilir.</p>
+
+<p><code class="highlighter-rouge">geo.wifi.uri</code> = Konum bilgisi için veri sağlayıcısı. Varsayılan içerik silinerek <code class="highlighter-rouge">boş bırakılması</code> veya <code class="highlighter-rouge">http://localhost</code> yazılması önerilir.</p>
+
+<hr />
+
+<p><code class="highlighter-rouge">media.peerconnection.enabled</code> = webrtc’nin etkin olup olmadığını belirler. Eğer açıksa VPN kullanımınızda yerel ve uzak ip adresinizi sızdırır. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir. Test için =&gt; <code class="highlighter-rouge">https://www.browserleaks.com/webrtc</code> . Eğer hala zafiyet devam ediyorsa <code class="highlighter-rouge">media.peerconnection.turn.disable = true</code> &amp;&amp; ` media.peerconnection.use_document_iceservers = false<code class="highlighter-rouge"> &amp;&amp; </code> media.peerconnection.video.enabled = false<code class="highlighter-rouge"> &amp;&amp; </code> media.peerconnection.identity.timeout = 1`  bu değerleri de yazdığım şekilde değiştirebilirsiniz.</p>
+
+<hr />
+
+<p><code class="highlighter-rouge">media.video_stats.enabled</code> = Video oynatma ile ilgili istatistiklerinizi gönderir. <code class="highlighter-rouge">False</code> olarak değiştirilmesi durumunda istatistiklere erişilemez.</p>
+
+<p><code class="highlighter-rouge">network.cookie.cookieBehavior</code> = Çerezlere izin verilip verilmeyeceğini belirler. <code class="highlighter-rouge">0</code> Tüm çerezlere izin verir. <code class="highlighter-rouge">1</code> Yalnızca birinci taraf sunucudaki çerezlere izin verir (Önerilen). <code class="highlighter-rouge">2</code> Tüm çerezleri engeller. <code class="highlighter-rouge">3</code> Üçüncü taraf çerezlere izin verir.</p>
+
+<p><code class="highlighter-rouge">network.http.referer.spoofSource</code> = Gerçek veya sahte referer kullanımı tanımlar. <code class="highlighter-rouge">True</code> olarak değiştirilmesi halinde sahte referrer kullanılacaktır.</p>
+
+<p><code class="highlighter-rouge">network.http.sendRefererHeader</code> = Header referrer bilgisi. <code class="highlighter-rouge">0</code> Asla gönderme (önerilen). <code class="highlighter-rouge">1</code> Tıklandığında gönder. <code class="highlighter-rouge">2</code> Tıklandığında veya yüklenirken gönder.</p>
+
+<p><code class="highlighter-rouge">plugin.state.flash</code> = Flash player eklenti ayarları. <code class="highlighter-rouge">0</code> Flash eklentisini tamamen kapatır (önerilen). <code class="highlighter-rouge">1</code> Flash eklentisini aktifleştirmeden önce sor. <code class="highlighter-rouge">2</code> Flash eklentisine izin verir.</p>
+
+<p><code class="highlighter-rouge">plugin.state.java</code> = Java eklenti ayarları. <code class="highlighter-rouge">0</code> Java eklentisini tamamen kapatır (önerilen). <code class="highlighter-rouge">1</code> Java eklentisini aktifleştirmeden önce sor. <code class="highlighter-rouge">2</code> Java eklentisine izin verir.</p>
+
+<p><code class="highlighter-rouge">privacy.donottrackheader.enabled</code> = Web sitelerini ve hizmetleri izleme tercihi hakkında bilgilendirme. <code class="highlighter-rouge">True</code> olarak değiştirildiğinde izleme Headerı etkinleşir.</p>
+
+<p><code class="highlighter-rouge">webgl.disabled</code> = WebGL özelliğini tanımlar. <code class="highlighter-rouge">True</code> olarak değiştirdiğimizde bu özellik kapanmış olacaktır.</p>
+
+<p><code class="highlighter-rouge">pdfjs.disabled</code> = PDF dosyalarının okunup okunamayacağını belirler. <code class="highlighter-rouge">True</code> olarak değiştirdiğimiz takdirde PDF dosyalarını tarayıcımızdan okuyamayacağız.</p>
+
+<p><code class="highlighter-rouge">plugins.click_to_play</code> = Tıklama işlemi ile bazı eklentilerin çalıştırılma durumunu tanımlar.</p>
+
+<p><code class="highlighter-rouge">media.autoplay.enabled</code> = (HTML5) Videoların otomatik başlama durumunu tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">services.sync.engine.tabs</code> = Sekmelerin senkronize edilmesi durumunu tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">services.sync.engine.prefs</code> = Ayarların senkronize edilmesi durumunu tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirimesi önerilir.</p>
+
+<p><code class="highlighter-rouge">services.sync.engine.passwords</code> = Parolaların senkronize edilmesi durumunu tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">services.sync.engine.history</code> = Geçmişin senkronize edilmesi durumunu tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">services.sync.engine.bookmarks</code> = Sık kullanılanların senkronize edilmesi durumunu tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">services.sync.engine.addons</code> = Eklentilerin senkronize edilmesi durumunu tanımmlar. <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">browser.chrome.favicon</code> = faviconların gösterilme durumu. <code class="highlighter-rouge">False</code> olarak değiştirildiğinde gösterilen faviconlar kapanacaktır.</p>
+
+<p><code class="highlighter-rouge">media.eme.enabled</code> = Şifreli medya ekipmanlarını kapatmak için <code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p>Tarayıcı sağlık raporlamalarının kapatılması için <code class="highlighter-rouge">toolkit.telemetry.enabled</code> &amp;&amp; <code class="highlighter-rouge">datareporting.healthreport.uploadEnabled</code> &amp;&amp; <code class="highlighter-rouge">datareporting.policy.dataSubmissionEnabled</code> ayarlarının<code class="highlighter-rouge">False</code> olarak değiştirilmesi önerilir.</p>
+
+<p><code class="highlighter-rouge">dom.ipc.plugins.flash.subprocess.crashreporter.enabled</code> = Eklentilerin çökme raporlarını kapatmak için bu ayarı <code class="highlighter-rouge">False</code> olarak değiştirebilirsiniz.</p>
+
+<p><code class="highlighter-rouge">layout.spellcheckDefault</code> = Yazılım denetimi durumunu tanımlar. <code class="highlighter-rouge">False</code> olarak değiştirildiğinde denetim kapanacaktır.</p>
+
+<p>Devre dışı sertifika uyarısını bypass etmek için <code class="highlighter-rouge">browser.xul.error_pages.enabled</code> ayarını <code class="highlighter-rouge">False</code> olarak değiştiriyoruz.</p>
+
+<p><code class="highlighter-rouge">security.csp.enable</code> = İçerik Güvenlik Politikası. <code class="highlighter-rouge">True</code> olduğunda İçerik Güvenlik Politikası desteği etkin durumdadır.</p>
+
+<p><code class="highlighter-rouge">browser.urlbar.filter.javascript</code> = XSS filtresi.</p>
+
+<p><code class="highlighter-rouge">plugin.default.state</code> = Ön tanımlı gelen eklentileri kapatmak için <code class="highlighter-rouge">0</code> olarak değiştirebilirsiniz. &amp;&amp; <code class="highlighter-rouge">plugin.defaultXpi.state</code></p>
+
+<p>Webcam ve Mikrofon kullanımını kapatmak için <code class="highlighter-rouge">media.navigator.enabled</code> &amp;&amp; <code class="highlighter-rouge">media.navigator.video.enabled</code> ayarlarını <code class="highlighter-rouge">False</code> olarak değiştiriyoruz.</p>
+
+<p>İzinsiz gezinmeyi kapatmak için <code class="highlighter-rouge">network.http.speculative-parallel-limit</code> ayarını <code class="highlighter-rouge">0</code> olarak değiştiriyoruz.</p>
+
+<p>Bilinen takip domainlerini kapatmak için <code class="highlighter-rouge">privacy.trackingprotection.enabled</code> ayarını <code class="highlighter-rouge">True</code> olarak değiştiriyoruz.</p>
+
+<p><code class="highlighter-rouge">security.tls.version.min</code> = TLS v1.2 kullanım durumunu tanımlar. <code class="highlighter-rouge">3</code> olarak değiştirdiğimizde TLS v1.2 kullanmaya zorlamış oluyoruz.</p>
+
+<p><code class="highlighter-rouge">security.ssl3.rsa_aes_256_sha</code> = ecdhe/dhe chiplerları. Kapatmak için <code class="highlighter-rouge">False</code> olarak değiştiriyoruz.</p>
+
+<p><code class="highlighter-rouge">security.ssl3.rsa_des_ede3_sha</code> &amp;&amp; <code class="highlighter-rouge">security.ssl3.rsa_aes_256_sha</code> kullanılmayan protokolleri <code class="highlighter-rouge">False</code> olarak değiştiriyoruz.</p>
+
+<p><code class="highlighter-rouge">extensions.update.enabled</code> = Eklentilerin otomatik güncellenmesi durumunu tanımlar.</p>
+
+<p><code class="highlighter-rouge">browser.search.geoip.url</code> = Ülke bazlı arama motoru yönlendirmesi. Ayarı <code class="highlighter-rouge">""</code> olarak değiştirerek yönlendirmeyi kapatıyoruz.</p>
+
+<p><code class="highlighter-rouge">network.predictor.enabled</code> = Necko(https://wiki.mozilla.org/Privacy/Reviews/Necko) özelliğini kapatmak için <code class="highlighter-rouge">False</code> olarak değiştiriyoruz.</p>
+
+<p><code class="highlighter-rouge">browser.aboutHomeSnippets.updateUrl</code> = Snippet sunucusu(https://support.mozilla.org/en-US/kb/how-stop-firefox-making-automatic-connections#w_mozilla-content) URL kaldırmak için <code class="highlighter-rouge">""</code> olarak değiştiriyoruz.</p>
+
+<p><code class="highlighter-rouge">security.csp.enable</code> = CSP(https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy) Özelliği. Aktifleştirmek için <code class="highlighter-rouge">True</code> olarak değiştiriyoruz.</p>
+
+<hr />
+<h1 id="tarayıcı-kapatıldığında-tüm-verilerin-temizlenmesi-özelliğini-aktif-hale-getirme-işlemitrue-seçeneği-siler-false-seçeneği-silmez">Tarayıcı kapatıldığında tüm verilerin temizlenmesi özelliğini aktif hale getirme işlemi.(True seçeneği siler False seçeneği silmez)</h1>
+
+<p><code class="highlighter-rouge">privacy.sanitize.sanitizeOnShutdown</code> &amp;&amp; <code class="highlighter-rouge">privacy.clearOnShutdown.cache</code> &amp;&amp; <code class="highlighter-rouge">privacy.clearOnShutdown.cookies</code> &amp;&amp; <code class="highlighter-rouge">privacy.clearOnShutdown.downloads</code></p>
+
+<p><code class="highlighter-rouge">privacy.clearOnShutdown.history</code> &amp;&amp; <code class="highlighter-rouge">privacy.clearOnShutdown.offlineApps</code> &amp;&amp; <code class="highlighter-rouge">privacy.clearOnShutdown.openWindows</code> &amp;&amp; <code class="highlighter-rouge">privacy.clearOnShutdown.passwords</code></p>
+
+<p><code class="highlighter-rouge">privacy.clearOnShutdown.siteSettings</code> &amp;&amp; <code class="highlighter-rouge">privacy.clearOnShutdown.sessions</code> &amp;&amp; <code class="highlighter-rouge">privacy.clearOnShutdown.formdata</code></p>
+
+<hr />
+<h1 id="kurulması-önerilen-eklentiler">Kurulması Önerilen Eklentiler</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Random User Agent Spoofer(https://github.com/dillbyrne/random-agent-spoofer)
+
+uBlock Origins(https://github.com/gorhill/uBlock)
+
+Https-Everywhere(https://www.eff.org/https-everywhere%20)
+
+Disconnect(https://addons.mozilla.org/en-US/firefox/addon/disconnect/)
+
+No Youtube Comment(https://addons.mozilla.org/en-US/firefox/addon/no-youtube-comments/)
+
+Self-Destructing Cookies(https://addons.mozilla.org/en-US/firefox/addon/self-destructing-cookies/)
+
+No-Script(https://addons.mozilla.org/en-US/firefox/addon/noscript/)
+
+RequestPolicy(https://addons.mozilla.org/en-US/firefox/addon/requestpolicy-continued/)
+
+SSLeuth(https://addons.mozilla.org/en-US/firefox/addon/ssleuth/)
+
+Privacy Settings(https://addons.mozilla.org/en-US/firefox/addon/privacy-settings/)
+
+Decentraleyes(https://addons.mozilla.org/en-US/firefox/addon/decentraleyes/)
+
+
+https://browserleaks.com/ Tarayıcı üzerinden hangi bilgileri paylaştığınızı bu siteden kontrol edebilirsiniz.
+</code></pre></div></div>
+
+<h1 id="kaynakça">Kaynakça</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://gokay.org/firefox-guvenlik-ve-gizlilik/
+https://mertcangokgoz.com/mozilla-firefox-guvenlik-ve-gizlilik-ayarlari/
+</code></pre></div></div>
+</div>
+  <div class="share-page">
+  <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
+
+  <!-- Twitter -->
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</div>
+
+<div class="PageNavigation">
+  
+  
+    <a class="next" href="/2018/07/24/php_url_parse_etmek.html">PHP URL Ayrıştırmak (URL Parse Etmek) &raquo;</a>
+  
+</div>
+
+        <footer>
+          &copy; Alp Eren Işık
+          
+            - <a href="https://github.com/isikerenalp">https://github.com/isikerenalp</a>
+          
+          <div class="btn-github" style="float:right;">
+          </div>
+        </footer>
+      </div>
+      <!-- end /.col-sm-8 -->
+    </div>
+    <!-- end /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/super-search.js"></script>
+    <script src="/static/js/thickbox-compressed.js"></script>
+    <script src="/static/js/projects.js"></script>
+  </body>
+</html>
+

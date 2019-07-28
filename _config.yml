@@ -1,18 +1,47 @@
-title:             Alp Eren Işık
-description:       PauSiber
-author:            Alp Eren Işık
-baseurl:           ""
-url:               "http://isikerenalp.me"
+title: Posts
+description: My Personal Posts
+author: Alp Eren Işık
+github: https://github.com/isikerenalp
+about: PauSiber
+# disqus_shortname:
+# google_analytics:
+avatar_url: /static/img/profile.png
 
-# Social Profiles
-linkedin_username: isikerenalp
-github_username:   isikerenalp
-dersim_username:   alperenisik
+enableTags: true
+tagarray: []
 
-# Build settings
-markdown:          kramdown
-paginate:          5
-paginate_path:     "/posts/page:num/"
-plugins:
-  - jekyll-feed
+
+social:
+    - icon: fa-twitter
+      link: "#"
+    - icon: fa-linkedin
+      link: "https://tr.linkedin.com/in/isikerenalp"
+    - icon: fa-github
+      link: "https://github.com/isikerenalp"
+
+# share:
+#   twitter_username: github.io
+#   fb_appid: 1749788565247320
+
+urls:
+    - text: About Me
+      url: /about/
+    - text: XML Feed
+      url: /feed.xml
+
+url: "https://isikerenalp.github.io"
+baseurl: ""
+paginate: 20
+per_page: 20
+paginate_path: "/page/:num/"
+markdown: kramdown
+gems:
   - jekyll-paginate
+  - jekyll-gist
+
+compress_html:
+  clippings: all
+  comments: ["<!-- ", " -->"]
+  endings: all
+  ignore:
+    envs: ['development']
