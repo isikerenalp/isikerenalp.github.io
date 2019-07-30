@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <title>PauSiber Vulnourblog WRITEUP - Posts</title>
+    <meta name="author" content="Alp Eren Işık" />
+    <meta name="description" content="PauSiber Vulnourblog WRITEUP" />
+    <meta name="keywords" content="PauSiber Vulnourblog WRITEUP, Posts, writeup" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+    <meta content="" property="fb:app_id">
+    <meta content="Posts" property="og:site_name">
+
+    
+
+    
+      <meta content="PauSiber Vulnourblog WRITEUP" property="og:title">
+      <meta content="article" property="og:type">
+    
+
+    
+      <meta content="Alp Eren Işık" property="og:description">
+    
+
+    
+      <meta content="http://localhost:4000/2019/07/31/pausiber_vulnourblog.html" property="og:url">
+    
+
+    
+      <meta content="2019-07-31T00:00:00+03:00" property="article:published_time">
+      <meta content="http://localhost:4000/about/" property="article:author">
+    
+
+    
+      <meta content="http://localhost:4000/static/img/profile.png" property="og:image">
+    
+
+    
+      
+        <meta content="writeup" property="article:section">
+      
+    
+
+    
+      
+    
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+
+    
+      <meta name="twitter:title" content="PauSiber Vulnourblog WRITEUP">
+    
+
+    
+      <meta name="twitter:url" content="http://localhost:4000/2019/07/31/pausiber_vulnourblog.html">
+    
+
+    
+      <meta name="twitter:description" content="Alp Eren Işık">
+    
+
+    
+
+    <!-- Font awesome icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/static/css/syntax.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/super-search.css">
+    <link rel="stylesheet" href="/static/css/thickbox.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-sm-3">
+        <div class="fixed-condition">
+          <a href="/"><img class="profile-avatar" src="/static/img/profile.png" height="75px" width="75px" /></a>
+          <h1 class="author-name">Alp Eren Işık</h1>
+          
+            <div class="profile-about">
+              PauSiber
+            </div>
+          
+          <div class="social">
+            <ul>
+              
+                <li><a href="https://twitter.com/isik_erenalp" target="_blank"><i class="fa fa-twitter"></i></a></li>
+              
+                <li><a href="https://tr.linkedin.com/in/isikerenalp" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+              
+                <li><a href="https://github.com/isikerenalp" target="_blank"><i class="fa fa-github"></i></a></li>
+              
+            </ul>
+          </div>
+          <div class="search" id="js-search">
+            <input type="text" placeholder="alp@eren~$ " class="search__input form-control" id="js-search__input">
+            <ul class="search__results" id="js-search__results"></ul>
+          </div>
+          <hr />
+          <ul class="sidebar-nav">
+            <li><a href="/">Home</a></li>
+            
+              <li><a class="about" href="/about/">About Me</a></li>
+            
+              <li><a class="about" href="/feed.xml">XML Feed</a></li>
+            
+          </ul>
+        </div>
+        <!-- end /.fixed-condition -->
+      </div>
+      <div class="col-sm-8 col-offset-1 main-layout">
+        <header class="post-header">
+  <h1 class="post-title">PauSiber Vulnourblog WRITEUP</h1>
+</header>
+
+<span class="time">31 Jul 2019</span>
+
+  <span class="categories">
+    &raquo; <a href="/category/writeup">writeup</a>
+  </span>
+
+
+<div class="content">
+  <div class="post"><hr />
+
+<p><a href="https://pausiber.xyz">PauSiber</a> tarafından hazırlanan <strong>Vulnerable Blog Application</strong> için öncelikli olarak ekip arkadaşlarıma teşekkür ederim. İçerisinde <a href="https://www.owasp.org">OWASP</a> tarafından kabul görmüş popüler web zafiyetleri yer almaktadır. Dilerseniz yazıyı okumadan önce <a href="https://github.com/PauSiber/vulnourblog">BURAYA</a> tıklayarak sizlerde bu zafiyetli web uygulamasını kurcalayabilirsiniz.</p>
+
+<hr />
+
+<h1 id="reflected-xss"><code class="highlighter-rouge">Reflected XSS</code></h1>
+<p>Search kısmında <strong>Reflected XSS</strong> olabileceğini düşündüğümden kontrol etmeye karar verdim.</p>
+
+<p><img src="/static/img/posts/vulnourblog/reflected-xss-1.png" alt="xss" /></p>
+
+<p>Öncelikli olarak sayfa kaynağını görüntüleyerek XSS arayacağımız input kısmında herhangi bir kontrol olup olmadığına bakacağım.</p>
+
+<p><img src="/static/img/posts/vulnourblog/reflected-xss-2.png" alt="xss" /></p>
+
+<p>Gördüğünüz gibi gönderdiğimiz değer <strong>s_result.php</strong>‘ye gidiyor. Sayfamız açık kaynak kodlu olduğu için daha hızlı sonuç alacağımı düşünerek s_result.php’nin kaynak koduna bakmaya karar verdim.</p>
+
+<p><img src="/static/img/posts/vulnourblog/reflected-xss-3.png" alt="xss" /></p>
+
+<p>Kaynak kodda gördüğüm <strong>searchPageDom($_GET[“key”])</strong> dikkatimi çekti. <strong>s_result.php</strong> içerisinde böyle bir özellik olmadığı için <strong>header.php</strong>‘ye bakmaya karar verdim ve dikkatimi <strong>settings.php ile functions.php</strong> çekti. Aradığım fonksiyonun <strong>functions.php</strong>‘de olma olasılığı yüksek olduğundan hemen <strong>functions.php</strong>‘nin kaynak koduna bakmaya başladım.</p>
+
+<p><img src="/static/img/posts/vulnourblog/reflected-xss-4.png" alt="xss" /></p>
+
+<p>Ve sonuç olarak engellenmiş olan kelimeleri bulduk. Artık buna göre payloadımızı hazırlayabiliriz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;object data=data:text/html;base64,PHN2Zy9vbmxvYWQ9YWxlcnQoMik+&gt;&lt;/object&gt;   
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/vulnourblog/reflected-xss-5.png" alt="xss" /></p>
+
+<p><img src="/static/img/posts/vulnourblog/base64.png" alt="xss" /></p>
+
+<h1 id="stored-xss"><code class="highlighter-rouge">Stored XSS</code></h1>
+
+<p>Hazır XSS ile başlamışken bir de yazıların altında bulunan yorum bölümünde <strong>Stored XSS</strong> var mı diye kontrol edelim.</p>
+
+<p><img src="/static/img/posts/vulnourblog/stored-xss-1.png" alt="xss" /></p>
+
+<p>Form yapısında kontrol var mı diye kontrol ediyorum. İlk başta <strong>id=”comment”</strong> dikkatimi çekiyor. Daha sonra kaynak kodun altında yer alan <strong>js/post.js</strong> dosyası dikkatimi çekiyor ve kontrol işlemini yapan özelliğin bu dosyada olduğunu düşünerek açıp incelemeye karar veriyorum.</p>
+
+<p><img src="/static/img/posts/vulnourblog/stored-xss-2.png" alt="xss" /></p>
+
+<p>Ve bingo! Gördüğünüz gibi bir blacklist oluşturulmuş. Artık hangi ifadelerin engelli olduğunu bildiğimize göre uygun payloadımızı hazırlayabiliriz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;object data=data:text/html;base64,PHN2Zy9vbmxvYWQ9YWxlcnQoIlBhdVNpYmVyIik+&gt;&lt;/object&gt;   
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/vulnourblog/stored-xss-3.png" alt="xss" /></p>
+
+<p><img src="/static/img/posts/vulnourblog/stored-xss-4.png" alt="xss" /></p>
+
+<h1 id="sql-injection"><code class="highlighter-rouge">SQL Injection</code></h1>
+<p>Kategorilere ait yazıların listelendiği bölümde <strong>sql injection</strong> olabileceğini düşünerek bi tırnak attım ve sayfa gitti :). Devamında <strong>order by</strong> ile 7 adet kolonumuz olduğunu öğreniyoruz.</p>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-1.png" alt="sql_injection" /></p>
+
+<p>Daha sonra <strong>union select 1,2,3,4,5,6,7</strong> yazarak ekrana hangi sayıları bastığını göreceğiz.</p>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-2.png" alt="sql_injection" /></p>
+
+<p>Gördüğünüz gibi 3 ve 4’ü ekrana bastı. Artık sorgumuzda 3. veya 4. kolonun olduğu kısımları kullanarak ilgili dataları çekebiliriz.</p>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-3.png" alt="sql_injection" /></p>
+
+<p>Öncelikli olarak veritabanı adını öğrendik. Daha sonra tablo isimlerini çekeceğiz. Burada <strong>table_schema=database()</strong> yerine <strong>table_schema=”cypwn_vulnourblog”</strong> da yazabilirsiniz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost/vulnourblog/category.php?id=3 union select 1,2,table_name,4,5,6,7 from information_schema.tables where table_schema="cypwn_vulnourblog"
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-4.png" alt="sql_injection" /></p>
+
+<p>Şimdi tablo isimlerini öğrendiğimize göre ilgili tablonun kolon isimlerini öğrenebiliriz. Burada bizim için önemli olan <strong>user</strong> tablosudur.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost/vulnourblog/category.php?id=3 union select 1,2,column_name,4,5,6,7 from information_schema.columns where table_name="users"
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-5.png" alt="sql_injection" /></p>
+
+<p>Şimdi bizim için önemli olan <strong>username</strong> ve <strong>password</strong> bilgilerini çekeceğiz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost/vulnourblog/category.php?id=3 union select 1,2,group_concat(username,0x3a,password),4,5,6,7 from users
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-6.png" alt="sql_injection" /></p>
+
+<p>Evet gördüğünüz gibi admin bilgilerini çekmiş olduk. <strong>http://localhost/vulnourblog/admin/login/</strong> adresine giderek giriş yapabilirsiniz.</p>
+
+<p>Kaynak Kod :</p>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-7.png" alt="sql_injection" /></p>
+
+<p>Ayrıca sizlere yardımcı olması açısından ufak ipuçlarını da kaynak kodlarda görebilirsiniz :)</p>
+
+<p>Bunun dışında <strong>post.php</strong>‘de de <strong>sql injection</strong> zafiyeti bulunmaktadır.</p>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-8.png" alt="sql_injection" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost/vulnourblog/post.php?id=3 or true
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-9.png" alt="sql_injection" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost/vulnourblog/post.php?id=3 union select 1,2,3,group_concat(username,0x3a,password),5,6 from users
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-10.png" alt="sql_injection" /></p>
+
+<p>Kaynak Kod :</p>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-11.png" alt="sql_injection" /></p>
+
+<p>Son olarak admin panelinde yer alan yorum silme bölümünde de <strong>sql injection</strong> zafiyeti bulunmaktadır.</p>
+
+<p>Kaynak Kod :</p>
+
+<p><img src="/static/img/posts/vulnourblog/sqli-12.png" alt="sql_injection" /></p>
+
+<h1 id="admin-login"><code class="highlighter-rouge">Admin Login</code></h1>
+
+<p>Öncelikli olarak <strong>sql injection</strong> zafiyetinde görmüş olduğumuz gibi adminin <strong>kullanıcı adı ve parolasının</strong> tahmin edilmesi çok kolay. Bu yüzden basit bir brute force saldırısı ile admin paneline giriş yapabiliriz.</p>
+
+<p>Diğer yolu ise öncelikli olarak tarayıcımıza cookie yönetimi yapabileceğimiz bir eklenti kurmaktan geçiyor. Daha sonra <strong>http://localhost/vulnourblog/admin/login/</strong> adresine gidip bu eklentimiz ile cookie değerimizi kontrol ediyoruz.  <strong>isadmin</strong> yazısını ve bize atamış olduğu cookie değerini <strong>cfcd208495d565ef66e7dff9f98764da</strong> olarak göreceksiniz. Bu değeri <strong>MD5</strong> ile decrypt(şifre çözme) ederseniz değerin 0 geldiğini göreceksiniz. O halde <strong>Md5(1) = c4ca4238a0b923820dcc509a6f75849b</strong> değerini cookie değeri olarak almayı deneyelim :).</p>
+
+<p><img src="/static/img/posts/vulnourblog/cookie.jpg" alt="cookie" /></p>
+
+<p>Daha sonra <strong>http://localhost/vulnourblog/admin/</strong> URL’ine gittiğimizde admin olarak giriş yapmış olacağız.</p>
+
+<p><img src="/static/img/posts/vulnourblog/admin.png" alt="cookie" /></p>
+
+<p>Kaynak Kod :</p>
+
+<p><img src="/static/img/posts/vulnourblog/cookie-3.png" alt="cookie" /></p>
+
+<p><img src="/static/img/posts/vulnourblog/cookie-2.png" alt="cookie" /></p>
+
+<h1 id="file-upload"><code class="highlighter-rouge">File Upload</code></h1>
+
+<p>Admin panelinde yazı ekleme bölümünde <strong>File Upload</strong> zafiyeti var. Yaklaşık 1,5 sene önce bu siteyle ilk uğraştığım zamanlarda içeriye güzel bir shell atıp veritabanındaki bütün verileri silmiştim. Ancak şuan bazı teknik aksaklıklardan dolayı bu kısmı gösteremiyeceğim. Zafiyetli kod aşşağıda yer almaktadır. Temel mantığı <strong>DVWA File Upload – Medium Level</strong> ile aynıdır.</p>
+
+<p><a href="https://github.com/PauSiber/vulnourblog/blob/master/admin/yaziekle.php">Zafiyetli Kod</a></p>
+
+<h1 id="local-file-inclusion-lfi"><code class="highlighter-rouge">Local File Inclusion (LFI)</code></h1>
+
+<p>Admin panelinde gezinirken aklıma acaba burda <strong>lfi</strong> var mıdır sorusu geldi ve sonuç.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost/vulnourblog/admin/index.php?page=/etc/passwd
+</code></pre></div></div>
+
+<p><img src="/static/img/posts/vulnourblog/lfi.png" alt="lfi" /></p>
+</div>
+  <div class="share-page">
+  <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
+
+  <!-- Twitter -->
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</div>
+
+<div class="PageNavigation">
+  
+    <a class="prev" href="/2019/07/29/lock_picking_nedir.html">&laquo; Lock Picking Nedir ?</a>
+  
+  
+</div>
+
+        <footer>
+          &copy; Alp Eren Işık
+          
+            - <a href="https://github.com/isikerenalp">https://github.com/isikerenalp</a>
+          
+          <div class="btn-github" style="float:right;">
+          </div>
+        </footer>
+      </div>
+      <!-- end /.col-sm-8 -->
+    </div>
+    <!-- end /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/super-search.js"></script>
+    <script src="/static/js/thickbox-compressed.js"></script>
+    <script src="/static/js/projects.js"></script>
+  </body>
+</html>
+
