@@ -5,9 +5,51 @@
     <description>Alp Eren Işık</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/sitemap.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 31 Jul 2019 01:27:06 +0300</pubDate>
-    <lastBuildDate>Wed, 31 Jul 2019 01:27:06 +0300</lastBuildDate>
+    <pubDate>Mon, 05 Aug 2019 23:30:51 +0300</pubDate>
+    <lastBuildDate>Mon, 05 Aug 2019 23:30:51 +0300</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Microsegmentation Nedir ?</title>
+        <description>&lt;p&gt;&lt;strong&gt;Microsegmentation&lt;/strong&gt;, ağ güvenliği uzmanları tarafından, genel sistemin güvenli kalmasını kolaylaştırmak amacıyla bir ağı daha küçük parçalara bölmek için kullanılan bir işlemdir. Bu yöntem bulut sistemlerine veya veri merkezlerine uygulanabilir ve güvenlik uzmanlarının tüm sistemin parçalarını tek tek emniyete almasını sağlar. Bu aynı zamanda kötü niyetli kullanıcılar için azaltılmış bir saldırı yüzeyi sunduğundan, geleneksel çevre güvenliğine göre avantaj sağlar. &lt;strong&gt;Microsegmentation&lt;/strong&gt; tipik olarak ağ bölümlerini bir güvenlik bölgesine bağlamak için yapılandırılmış bir dizi güvenlik duvarı arayüzü kullanır. Bu bölge, yalnızca izin verilen kullanıcıların, cihazların ve uygulamaların o bölgeye erişmesine izin veren kurallarla güvence altına alınmaktadır. &lt;strong&gt;Microsegmentation&lt;/strong&gt; etkili çalışması için güvenlik bölgelerinin, kontrollerinin ve iş akışlarının sıkı bir şekilde tanımlanması önemlidir.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/microsegmentation/microsegmentation.png&quot; alt=&quot;schema&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;microsegmentation-vs-vlans-firewalls-acls&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Microsegmentation vs. VLANs, Firewalls, ACLs&lt;/code&gt;&lt;/h1&gt;
+
+&lt;p&gt;Şirketler yıllarca ağ bölümlemesi için güvenlik duvarlarına , sanal yerel alan ağlarına (VLAN) ve erişim kontrol listelerine (ACL) güveniyorlardı. &lt;strong&gt;Microsegmentation&lt;/strong&gt; daha fazla saldırı direnci için güvenlik politikalarını bireysel iş yüklerine uygular. VLAN’ların çok kaba bölümleme yapmanıza izin verdiği yerlerde, &lt;strong&gt;microsegmentation&lt;/strong&gt;  daha ince bölümleme yapmanıza izin verir. Bu nedenle, her yerde trafiğin ayrıntılı bölümlerine inmeniz gerekir. Kısaca özel bir vlan, sistemlerin aynı alt ağdaki diğer sistemlere ulaşmasını engeller ama bir katman 3 (ağ katmanı) bağlantısı üzerinden ulaşabilecekleri diğer sistemlere bağlantılarını engellemez ancak &lt;strong&gt;microsegmentation&lt;/strong&gt; hangi bağlantılara izin verildiğini ve hangilerinin engellenmesi gerektiğini kontrol etmek için genellikle politika temelli bir kontrol sağlar. Hassas veri ve uygulamaları korumak için genellikle veri merkezinde yapılır.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/microsegmentation/microsegmentation-azure.jpg&quot; alt=&quot;schema&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Doğu-batı trafik kontrolü için iç güvenlik duvarlarının yapılandırılması ve ardından bu konfigürasyonların zaman içinde sürdürülmesi konusundaki manuel çaba, kurumlar için çok karmaşık ve maliyetli olmuştur. Buna karşılık, SDN (Software-defined networking) ve SDDC (Software-defined data center) yetenekleri, ağın &lt;strong&gt;microsegmentation&lt;/strong&gt; yoluyla talebe göre hizmet sağlama, parametreleri değiştirme esnekliği ve her sanal makine üzerinde güvenliği sağlama yeteneğini destekler.&lt;/p&gt;
+
+&lt;p&gt;Bir başka &lt;strong&gt;microsegmentation&lt;/strong&gt; kavramı, sanallaştırılmış güvenliğin “zero-trust model (sıfır güven modeli)” olarak adlandırılan, sadece bir iş yükünde veya uygulamada yalnızca gerekli izinlerin ve bağlantıların etkinleştirimesini ve varsayılan olarak başka bir şeyin engellenmesini sağlayabilir. Mikro-segmentasyon kullanarak, yöneticiler bir iş yükü veya uygulamanın nerede kullanılacağı, hangi tür verilere erişileceği ve uygulamanın ne kadar önemli / hassas olması gerektiğine dayanan bir güvenlik politikası programlayabilir.&lt;/p&gt;
+
+&lt;h1 id=&quot;kuzey-güney-ve-doğu-batı-trafik-nedir-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Kuzey-Güney ve Doğu-Batı Trafik Nedir ?&lt;/code&gt;&lt;/h1&gt;
+
+&lt;p&gt;Kuzey-Güney ve Doğu-Batı trafiği, veri merkezi bağlamında bir ağ trafiği akış şeklidir. Tarayıcı aracılığıyla bazı web uygulamalarına erişmeye çalıştığınızda, web uygulaması, bazı veri merkezlerinde bulunan bir uygulama sunucusunda dağıtılmaktadır. Çok katmanlı bir mimaride, tipik bir veri merkezi yalnızca uygulama sunucusunu değil, yük dengeleyici, veri tabanı gibi diğer sunucuları da yönlendiriciler ve anahtarlar gibi ağ bileşenleriyle birlikte içerir.&lt;/p&gt;
+
+&lt;p&gt;Örneğin Web uygulamasına eriştiğinizde ;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Adım: İstemci ve  yük dengeleyici arasında ağ akışı oluşur. Bu birinci tür ağ akışı yani müşteri ile sunucu arasındaki ağ akışına &lt;strong&gt;Kuzey-Güney&lt;/strong&gt; trafik adı verilir. Kuzey-Güney trafiği bir sunucu-müşteri trafiğidir.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Adım: Bir veri merkezinde bulunan yük dengeleyici, uygulama sunucusu, veri tabanı vb. arasında bir ağ akışı oluşur. Bu ikinci tür ağ akışı yani bir veri merkezinde veya farklı veri merkezleri ile farklı sunucular arasında oluşan ağ akışı &lt;strong&gt;Doğu-Batı&lt;/strong&gt; trafiği olarak adlandırılır. Doğu-Batı trafiği bir sunucu-sunucu trafiğidir .&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/static/img/posts/microsegmentation/microsegmentation-architecture.jpg&quot; alt=&quot;schema&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 05 Aug 2019 00:00:00 +0300</pubDate>
+        <link>http://localhost:4000/2019/08/05/microsegmentation_nedir.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/08/05/microsegmentation_nedir.html</guid>
+        
+        
+        <category>network</category>
+        
+      </item>
     
       <item>
         <title>PauSiber Vulnourblog WRITEUP</title>
