@@ -3,7 +3,7 @@ layout: post
 title:  "HackTheBox - Swagshop Writeup"
 author: "Alp Eren Işık"
 date:   2019-09-29
-categories: [hackthebox]
+categories: [hackthebox, writeup]
 permalink: /:year/:month/:day/:title:output_ext
 ---
 
