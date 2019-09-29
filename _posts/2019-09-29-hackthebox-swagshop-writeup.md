@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "PauSiber Vulnourblog WRITEUP"
+title:  "HackTheBox - Swagshop Writeup"
 author: "Alp Eren Işık"
 date:   2019-07-31
 categories: [writeup:hackthebox]
