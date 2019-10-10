@@ -2,8 +2,8 @@
 layout: post
 title:  "HackTheBox - Swagshop Writeup"
 author: "Alp Eren Işık"
-date:   2019-07-31
-categories: [writeup:hackthebox]
+date:   2019-09-29
+categories: [hackthebox, writeup]
 permalink: /:year/:month/:day/:title:output_ext
 ---
 
@@ -50,16 +50,16 @@ Gördüğünüz gibi exploit sorunsuz bir şekilde çalıştı. Artık sunucuya 
 
 # `Privilege escalation`
 
-![magento-37811](/static/img/posts/htb-swagshop/10.png)
+![hak-yükseltme](/static/img/posts/htb-swagshop/10.png)
 
 `/var/www/html/` dizininde bulunan dosyaları `vi` üzerinden `root` yetkisi ile açabileceğimizi farkettim. Daha sonra `:!/bin/bash` diyerek `root` komut satırına düşeceğiz. (Burada /var/www/html/ dizini altında yeni bir dosya oluşturmak yerine /var/www/html/index.php diyerek var olan dosyayı da açabilirsiniz)
 
-![magento-37811](/static/img/posts/htb-swagshop/11.png)
+![hak-yükseltme](/static/img/posts/htb-swagshop/11.png)
 
 `:) ve root olduk`
 
-![magento-37811](/static/img/posts/htb-swagshop/root.png)
+![hak-yükseltme](/static/img/posts/htb-swagshop/root.png)
 
 User & System Owns
 
-![magento-37811](/static/img/posts/htb-swagshop/flags.png)
+![hak-yükseltme](/static/img/posts/htb-swagshop/flags.png)
