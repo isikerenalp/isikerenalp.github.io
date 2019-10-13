@@ -4,7 +4,7 @@ author: Alp Eren Işık
 github: https://github.com/isikerenalp
 about: PauSiber
 # disqus_shortname:
-# google_analytics:
+google_analytics: UA-149877622-1
 avatar_url: /static/img/profile.png
 
 enableTags: true
