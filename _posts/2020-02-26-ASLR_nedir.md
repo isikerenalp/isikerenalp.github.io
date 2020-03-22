@@ -3,7 +3,7 @@ layout: post
 title:  "Address Space Layout Randomization (ASLR)"
 author: "Alp Eren Işık"
 date:   2020-02-26
-categories: [exploit-development, reverse-engineering, binary-exploitation]
+categories: [exploit-development, binary-exploitation]
 permalink: /:year/:month/:day/:title:output_ext
 ---
 
