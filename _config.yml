@@ -24,10 +24,12 @@ social:
 #   fb_appid: 1749788565247320
 
 urls:
-    - text: About Me
+    - text: Hakkımda
       url: /about/
     - text: XML Feed
       url: /feed.xml
+    - text: Kaynak Önerileri
+      url: /kaynak/
 
 url: "https://isikerenalp.github.io"
 baseurl: ""
