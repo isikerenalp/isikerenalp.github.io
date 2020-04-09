@@ -6,56 +6,55 @@ permalink: /kaynak/
 
 # Kaynak/Döküman Tavsiyeleri
 
-
 ## Blog
 
-- TR - https://vvhack.org
+- TR - [https://vvhack.org](https://vvhack.org)
 
-- TR - https://canyoupwn.me/
+- TR - [https://canyoupwn.me/](https://canyoupwn.me/)
 
-- TR - http://blog.btrisk.com/?m=1
+- TR - [http://blog.btrisk.com/?m=1](http://blog.btrisk.com/?m=1)
 
-- TR - https://www.mertsarica.com/
+- TR - [https://www.mertsarica.com/](https://www.mertsarica.com/)
 
-- TR - https://halilozturkci.com/
+- TR - [https://halilozturkci.com/](https://halilozturkci.com/)
 
-- EN - https://0x00sec.org/
+- EN - [https://0x00sec.org/](https://0x00sec.org/)
 
-- EN - https://liveoverflow.com/
+- EN - [https://liveoverflow.com/](https://liveoverflow.com/)
 
-- EN - http://www.phrack.org/
+- EN - [http://www.phrack.org/](http://www.phrack.org/)
 
-- EN - http://www.fuzzysecurity.com/
+- EN - [http://www.fuzzysecurity.com/](http://www.fuzzysecurity.com/)
 
-- TR - WEB - https://www.diaryofinjector.com/
+- TR - WEB - [https://www.diaryofinjector.com/](https://www.diaryofinjector.com/)
 
-- EN - WEB - https://portswigger.net/web-security
+- EN - WEB - [https://portswigger.net/web-security](https://portswigger.net/web-security)
 
-- EN - Mobile Security - https://mobile-security.gitbook.io/mobile-security-testing-guide/
+- EN - Mobile Security - [https://mobile-security.gitbook.io/mobile-security-testing-guide/](https://mobile-security.gitbook.io/mobile-security-testing-guide/)
 
-- TR - Reverse Engineering / Exploit Development - https://www.s3cf4.info/
+- TR - Reverse Engineering / Exploit Development - [https://www.s3cf4.info/](https://www.s3cf4.info/)
 
-- TR - Reverse Engineering / Exploit Development - https://ring0.info/
+- TR - Reverse Engineering / Exploit Development - [https://ring0.info/](https://ring0.info/)
 
-- TR - Reverse Engineering / Exploit Development - http://web.archive.org/web/20190101014842/http://www.abdullahog.lu/index.php/bilisim
+- TR - Reverse Engineering / Exploit Development - [http://web.archive.org/web/20190101014842/http://www.abdullahog.lu/index.php/bilisim](http://web.archive.org/web/20190101014842/http://www.abdullahog.lu/index.php/bilisim)
 
-- TR - Reverse Engineering / Exploit Development / System Programming - http://www.cihatyildiz.net/ && https://blog.cihatyildiz.com/
+- TR - Reverse Engineering / Exploit Development / System Programming - [http://www.cihatyildiz.net/](http://www.cihatyildiz.net/) && [https://blog.cihatyildiz.com/](https://blog.cihatyildiz.com/)
 
-- EN - Reverse Engineering - https://github.com/onethawt/reverseengineering-reading-list
+- EN - Reverse Engineering - [https://github.com/onethawt/reverseengineering-reading-list](https://github.com/onethawt/reverseengineering-reading-list)
 
-- EN - ARM Security - https://azeria-labs.com/
+- EN - ARM Security - [https://azeria-labs.com/](https://azeria-labs.com/)
 
-- EN - IoT Security - https://github.com/V33RU/IoTSecurity101
+- EN - IoT Security - [https://github.com/V33RU/IoTSecurity101](https://github.com/V33RU/IoTSecurity101)
 
-- TR - Malware Analysis - https://manalysiz.com/
+- TR - Malware Analysis - [https://manalysiz.com/](https://manalysiz.com/)
 
-- TR - Online Pentesting Lab - https://priviahub.com/
+- TR - Online Pentesting Lab - [https://priviahub.com/](https://priviahub.com/)
 
-- EN - Online Pentesting Lab - https://www.hackthebox.eu/
+- EN - Online Pentesting Lab - [https://www.hackthebox.eu/](https://www.hackthebox.eu/)
 
-- EN - Exploit Writing Tutorial - https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/
+- EN - Exploit Writing Tutorial - [https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/](https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/)
 
-- EN - Heap Exploitation - https://heap-exploitation.dhavalkapil.com/
+- EN - Heap Exploitation - [https://heap-exploitation.dhavalkapil.com/](https://heap-exploitation.dhavalkapil.com/)
 
 ## Youtube Channel
 
