@@ -80,6 +80,12 @@ permalink: /kaynak/
 
 - [Understanding the Linux Kernel](https://www.amazon.com/Understanding-Linux-Kernel-Process-Management-ebook/dp/B0043D2E54)
 
+- [Linux Device Drivers](https://www.amazon.com/Linux-Device-Drivers-Jonathan-Corbet/dp/0596005903)
+
+- [Understanding Linux Network Internals](https://www.amazon.com/Understanding-Linux-Network-Internals-Networking/dp/0596002556)
+
+- [A Guide To Kernel Exploitation: Attacking The Core ](https://www.amazon.com/Guide-Kernel-Exploitation-Attacking-Core/dp/1597494860)
+
 - [Advanced Windows Debugging](https://www.amazon.com/Advanced-Windows-Debugging-Mario-Hewardt/dp/0321374460)
 
 - [Inside Windows NT](https://www.amazon.com/Inside-Windows-NT-Microsoft-Programming/dp/1572316772)
