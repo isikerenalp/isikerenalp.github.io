@@ -61,6 +61,10 @@ permalink: /kaynak/
 
 - TR - [Guvenlik TV](https://www.youtube.com/user/GuvenlikTV)
 
+- TR - [Türkiye Siber Güvenlik Kümelenmesi] (https://www.youtube.com/channel/UCHxw8GMMg62MXepyA-0wtDw)
+
+- TR - [mdisec] (https://www.youtube.com/channel/UClis21-nGFunHa9agc7Md_Q)
+
 - EN - [liveoverflow](https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w/videos)
 
 - EN - [MalwareAnalysisForHedgehogs](https://www.youtube.com/channel/UCVFXrUwuWxNlm6UNZtBLJ-A/videos)
