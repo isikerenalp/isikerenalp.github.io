@@ -32,7 +32,7 @@ permalink: /kaynak/
 
 - EN - Mobile Security - [https://mobile-security.gitbook.io/mobile-security-testing-guide/](https://mobile-security.gitbook.io/mobile-security-testing-guide/)
 
-- TR/EN - Reverse Engineering Blog List - [https:// ttmo.re/kutuphane](https:// ttmo.re/kutuphane)
+- TR/EN - Reverse Engineering Blog List - [https://ttmo.re/kutuphane](https://ttmo.re/kutuphane)
 
 - TR - Reverse Engineering / Exploit Development - [https://www.s3cf4.info/](https://www.s3cf4.info/)
 
@@ -56,7 +56,7 @@ permalink: /kaynak/
 
 - TR - [Guvenlik TV](https://www.youtube.com/user/GuvenlikTV)
 
-- TR - [APTV] (https://www.youtube.com/channel/UCYyx6JYywNqsx5RjaExWVXg/videos)
+- TR - [APTV](https://www.youtube.com/channel/UCYyx6JYywNqsx5RjaExWVXg/videos)
 
 - TR - [Türkiye Siber Güvenlik Kümelenmesi](https://www.youtube.com/channel/UCHxw8GMMg62MXepyA-0wtDw)
 
