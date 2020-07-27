@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Kaynak 
+title: Kaynak
 permalink: /kaynak/
 ---
 
@@ -32,11 +32,9 @@ permalink: /kaynak/
 
 - EN - Mobile Security - [https://mobile-security.gitbook.io/mobile-security-testing-guide/](https://mobile-security.gitbook.io/mobile-security-testing-guide/)
 
+- TR/EN - Reverse Engineering Blog List - [https:// ttmo.re/kutuphane](https:// ttmo.re/kutuphane)
+
 - TR - Reverse Engineering / Exploit Development - [https://www.s3cf4.info/](https://www.s3cf4.info/)
-
-- TR - Reverse Engineering / Exploit Development - [https://ring0.info/](https://ring0.info/)
-
-- TR - Reverse Engineering / Exploit Development - [http://web.archive.org/web/20190101014842/http://www.abdullahog.lu/index.php/bilisim](http://web.archive.org/web/20190101014842/http://www.abdullahog.lu/index.php/bilisim)
 
 - TR - Reverse Engineering / Exploit Development / System Programming - [http://www.cihatyildiz.net/](http://www.cihatyildiz.net/) && [https://blog.cihatyildiz.com/](https://blog.cihatyildiz.com/)
 
@@ -45,8 +43,6 @@ permalink: /kaynak/
 - EN - ARM Security - [https://azeria-labs.com/](https://azeria-labs.com/)
 
 - EN - IoT Security - [https://github.com/V33RU/IoTSecurity101](https://github.com/V33RU/IoTSecurity101)
-
-- TR - Malware Analysis - [https://manalysiz.com/](https://manalysiz.com/)
 
 - TR - Online Pentesting Lab - [https://priviahub.com/](https://priviahub.com/)
 
@@ -58,20 +54,25 @@ permalink: /kaynak/
 
 ## Youtube Channel
 
-
 - TR - [Guvenlik TV](https://www.youtube.com/user/GuvenlikTV)
 
-- TR - [Türkiye Siber Güvenlik Kümelenmesi] (https://www.youtube.com/channel/UCHxw8GMMg62MXepyA-0wtDw)
+- TR - [APTV] (https://www.youtube.com/channel/UCYyx6JYywNqsx5RjaExWVXg/videos)
 
-- TR - [mdisec] (https://www.youtube.com/channel/UClis21-nGFunHa9agc7Md_Q)
+- TR - [Türkiye Siber Güvenlik Kümelenmesi](https://www.youtube.com/channel/UCHxw8GMMg62MXepyA-0wtDw)
+
+- TR - [mdisec](https://www.youtube.com/channel/UClis21-nGFunHa9agc7Md_Q)
 
 - EN - [liveoverflow](https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w/videos)
+
+- EN - [John Hammond](https://www.youtube.com/c/JohnHammond010/videos)
 
 - EN - [MalwareAnalysisForHedgehogs](https://www.youtube.com/channel/UCVFXrUwuWxNlm6UNZtBLJ-A/videos)
 
 - EN - [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA/videos)
 
 - EN - [DEFCONConference](https://www.youtube.com/user/DEFCONConference/videos)
+
+- EN - [Black Hat](https://www.youtube.com/c/BlackHatOfficialYT/videos)
 
 
 ## Book
