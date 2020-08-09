@@ -52,6 +52,8 @@ permalink: /kaynak/
 
 - EN - Heap Exploitation - [https://heap-exploitation.dhavalkapil.com/](https://heap-exploitation.dhavalkapil.com/)
 
+- EN - Reverse Engineering Challenge - [http://flare-on.com/](http://flare-on.com/) 
+
 ## Youtube Channel
 
 - TR - [Guvenlik TV](https://www.youtube.com/user/GuvenlikTV)
@@ -118,6 +120,12 @@ permalink: /kaynak/
 - [The Hacker Playbook 3](https://www.amazon.com/Hacker-Playbook-Practical-Penetration-Testing/dp/1980901759/)
 
 - [Practical Malware Analysis](https://www.amazon.com/Practical-Malware-Analysis-Hands-Dissecting/dp/1593272901)
+
+- [x86 Instruction Set Architecture](https://www.amazon.com/x86-Instruction-Set-Architecture-Shanley/dp/0977087859)
+
+- [Practical Reverse Engineering](https://www.amazon.com/Practical-Reverse-Engineering-Reversing-Obfuscation-ebook/dp/B00IA22R2Y)
+
+- [The Art of Memory Forensics](https://www.amazon.com/Art-Memory-Forensics-Detecting-Malware/dp/1118825098)
 
 ## Movie/Series/Documentary
 
