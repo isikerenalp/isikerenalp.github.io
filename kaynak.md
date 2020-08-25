@@ -68,6 +68,10 @@ permalink: /kaynak/
 
 - EN - [John Hammond](https://www.youtube.com/c/JohnHammond010/videos)
 
+- EN - [Murmus CTF](https://www.youtube.com/c/MurmusCTF/videos)
+
+- EN - [GynvaelEN](https://www.youtube.com/c/GynvaelEN/videos)
+
 - EN - [MalwareAnalysisForHedgehogs](https://www.youtube.com/channel/UCVFXrUwuWxNlm6UNZtBLJ-A/videos)
 
 - EN - [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA/videos)
@@ -126,6 +130,10 @@ permalink: /kaynak/
 - [Practical Reverse Engineering](https://www.amazon.com/Practical-Reverse-Engineering-Reversing-Obfuscation-ebook/dp/B00IA22R2Y)
 
 - [The Art of Memory Forensics](https://www.amazon.com/Art-Memory-Forensics-Detecting-Malware/dp/1118825098)
+
+- [Malware Data Science](https://www.amazon.com/Malware-Data-Science-Detection-Attribution/dp/1593278594)
+
+- [Rootkits and Bootkits](https://www.amazon.com/Rootkits-Bootkits-Reversing-Malware-Generation/dp/1593277164)
 
 ## Movie/Series/Documentary
 
