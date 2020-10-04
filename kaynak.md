@@ -34,9 +34,9 @@ permalink: /kaynak/
 
 - TR/EN - Reverse Engineering Blog List - [https://ttmo.re/kutuphane](https://ttmo.re/kutuphane)
 
-- TR - Reverse Engineering / Exploit Development - [https://www.s3cf4.info/](https://www.s3cf4.info/)
+- TR - Reverse Engineering - [https://www.s3cf4.info/](https://www.s3cf4.info/)
 
-- TR - Reverse Engineering / Exploit Development / System Programming - [http://www.cihatyildiz.net/](http://www.cihatyildiz.net/) && [https://blog.cihatyildiz.com/](https://blog.cihatyildiz.com/)
+- TR - Reverse Engineering - [http://www.cihatyildiz.net/](http://www.cihatyildiz.net/) && [https://blog.cihatyildiz.com/](https://blog.cihatyildiz.com/)
 
 - EN - Reverse Engineering - [https://github.com/onethawt/reverseengineering-reading-list](https://github.com/onethawt/reverseengineering-reading-list)
 
@@ -53,6 +53,10 @@ permalink: /kaynak/
 - EN - Heap Exploitation - [https://heap-exploitation.dhavalkapil.com/](https://heap-exploitation.dhavalkapil.com/)
 
 - EN - Reverse Engineering Challenge - [http://flare-on.com/](http://flare-on.com/) 
+
+- EN - Reverse Engineering  - [hasherezade](https://hshrzd.wordpress.com/) 
+
+
 
 ## Youtube Channel
 
@@ -73,6 +77,8 @@ permalink: /kaynak/
 - EN - [GynvaelEN](https://www.youtube.com/c/GynvaelEN/videos)
 
 - EN - [MalwareAnalysisForHedgehogs](https://www.youtube.com/channel/UCVFXrUwuWxNlm6UNZtBLJ-A/videos)
+
+- EN - [OALabs](https://www.youtube.com/c/OALabs/videos)
 
 - EN - [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA/videos)
 

@@ -3,7 +3,7 @@ layout: post
 title:  "Stack Canary Bypass"
 author: "Alp Eren Işık"
 date:   2020-04-09
-categories: [exploit-development, binary-exploitation]
+categories: [binary-exploitation]
 permalink: /:year/:month/:day/:title:output_ext
 ---
 
