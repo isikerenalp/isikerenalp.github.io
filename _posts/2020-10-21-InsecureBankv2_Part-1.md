@@ -226,6 +226,42 @@ $ adb logcat | grep "jack"
 
 ![11](/static/img/posts/insecurebankv2/part1/11.png)
 
+# `Insecure SDCard storage`
+
+![12](/static/img/posts/insecurebankv2/part1/12.png)
+
+`mySharedPreferences` isimli bir dosyanın içerisinde kullanıcı bilgilerin tutulduğunu görüyoruz.
+
+![14](/static/img/posts/insecurebankv2/part1/14.png)
+
+`Username` base64 ile encode ediliyor ancak `password` `aesEncryptedString` fonksiyonu ile encode edilmiş.
+
+![15](/static/img/posts/insecurebankv2/part1/15.png)
+
+Evet sıra geldi `password`'u decode etmeye. Bunun için öncelikle `CryptoClass` içerisinde bulunan `aesEncryptedString` fonksiyonuna bakalım.
+
+![16](/static/img/posts/insecurebankv2/part1/16.png)
+
+Encrypt ve decrypt fonksiyonlarını incelersek az çok nasıl çözeceğimizi anlayabiliriz. Bunun için ufak bir python scripti işimizi görecektir.
+
+```python
+# https://pypi.org/project/pycrypto/
+from Crypto.Cipher import AES
+import base64
+
+key = b"This is the super secret key 123"
+ivBytes = b"\x00"*16
+password = base64.b64decode("v/sJpihDCo2ckDmLW5Uwiw==")
+
+aes = AES.new(key, AES.MODE_CBC, ivBytes)
+decrypted_password = aes.decrypt(password)
+
+print(decrypted_password)
+```
+
+![17](/static/img/posts/insecurebankv2/part1/17.png)
+
+
 #### `KAYNAK`
 
     https://medium.com/bugbountywriteup/android-insecurebankv2-walkthrough-part-1-9e0788ba5552
