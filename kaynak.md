@@ -32,6 +32,8 @@ permalink: /kaynak/
 
 - EN - Mobile Security - [https://mobile-security.gitbook.io/mobile-security-testing-guide/](https://mobile-security.gitbook.io/mobile-security-testing-guide/)
 
+- EN - Mobile Security - [Android App Reverse Engineering 101](https://maddiestone.github.io/AndroidAppRE)
+
 - TR/EN - Reverse Engineering Blog List - [https://ttmo.re/kutuphane](https://ttmo.re/kutuphane)
 
 - TR - Reverse Engineering - [https://www.s3cf4.info/](https://www.s3cf4.info/)
@@ -56,7 +58,7 @@ permalink: /kaynak/
 
 - EN - Reverse Engineering  - [hasherezade](https://hshrzd.wordpress.com/) 
 
-
+- EN - Reverse Engineering Workshops - [malwareunicorn](https://malwareunicorn.org/#/workshops)
 
 ## Youtube Channel
 
@@ -86,6 +88,19 @@ permalink: /kaynak/
 
 - EN - [Black Hat](https://www.youtube.com/c/BlackHatOfficialYT/videos)
 
+- EN - [pwn.college](https://www.youtube.com/c/pwncollege/videos)
+
+- EN - [Guided Hacking](https://www.youtube.com/c/GuidedHacking/videos)
+
+- EN - [Virus Bulletin](https://www.youtube.com/user/virusbtn/videos)
+
+- EN - [MalwareTech](https://www.youtube.com/c/MalwareTechBlog/videos)
+
+- EN - [gamozolabs](https://www.youtube.com/user/gamozolabs/videos)
+
+- EN - [OffensiveCon](https://www.youtube.com/c/OffensiveCon/videos)
+
+- EN - [hardwear.io](https://www.youtube.com/c/hardweario/videos)
 
 ## Book
 
@@ -140,6 +155,16 @@ permalink: /kaynak/
 - [Malware Data Science](https://www.amazon.com/Malware-Data-Science-Detection-Attribution/dp/1593278594)
 
 - [Rootkits and Bootkits](https://www.amazon.com/Rootkits-Bootkits-Reversing-Malware-Generation/dp/1593277164)
+
+- [Operating Systems Design and Implementation](https://www.amazon.com/Operating-Systems-Design-Implementation-3rd/dp/0131429388)
+
+- [The Linux Programming Interface](https://www.amazon.com/Linux-Programming-Interface-System-Handbook-ebook/dp/B004OEJMZM)
+
+- [Linux Kernel Development](https://www.amazon.com/Linux-Kernel-Development-Robert-Love/dp/0672329468)
+
+- [Android Internals](https://www.amazon.com/Android-Internals-Power-Users-View/dp/0991055527)
+
+- [Android Security Internals](https://www.amazon.com/Android-Security-Internals-Depth-Architecture/dp/1593275811)
 
 ## Movie/Series/Documentary
 
