@@ -201,3 +201,7 @@ permalink: /kaynak/
 - [Unit 42](https://www.imdb.com/title/tt6136644/)
 
 - [Person of Interest](https://www.imdb.com/title/tt1839578/)
+
+- [Revolution OS (2001)](https://www.imdb.com/title/tt0308808/)
+
+- [The Code (2001)](https://www.imdb.com/title/tt0315417/)

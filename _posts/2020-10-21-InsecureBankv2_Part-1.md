@@ -41,7 +41,7 @@ Evet giriş yaptık ancak cihazın rootlandığına dair bir mesaj var. Şimdili
 
 Ama önce düşünmemiz gereken başka birşey var bence. Bu zafiyetli uygulamayı hazırlayanlar bize hali hazırda kayıtlı olan kullanıcıların username/password bilgisini vermeseydi buraya nasıl girecektik ? 🤔
 
-# `Insecure Logging mechanism`
+# `Vulnerable Activity Components`
 
 `AndroidManifest.xml` dosyamızın içerisine bakacak olursak eğer...
 
