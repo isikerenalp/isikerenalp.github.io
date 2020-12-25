@@ -208,13 +208,13 @@ Uygulamanın backup'ının/yedeğinin alınmasına izin verildiğini görüyoruz
 
     adb backup com.android.insecurebankv2
 
-Bulunduğumuz dizinde backup.ab isimli bir dosya oluşmuş olacak. Bunu açabilmek ve verilere erişebilmek için https://github.com/nelenkov/android-backup-extractor aracından faydalanabilirsiniz. Başka bir araç veya yolu var mı diye bakındım ancak işe yarar bişi çıkmadı.
+Bulunduğumuz dizinde backup.ab isimli bir dosya oluşmuş olacak. Bunu açabilmek ve verilere erişebilmek için [Android backup extractor](https://github.com/nelenkov/android-backup-extractor) aracından faydalanabilirsiniz. Başka bir araç veya yolu var mı diye bakındım ancak işe yarar bişi çıkmadı.
 
 Backup içerisinden dosyaları çıkardığımız zaman telefonda depolanan tüm verilere erişmiş olacağız.
 
 # `Android keyboard cache issues`
 
-Android'de girdiğimiz kelimeler daha sonra otomatik düzeltme amacıyla kullanılmak üzere bir yere kayıt ediliyormuş. Bu kelimelerin tutulduğu dosyayada dışardan erilmek mümkünmüş. (öyleymiş böyleymiş şöyleymiş :D )
+Android'de girdiğimiz kelimeler daha sonra otomatik düzeltme amacıyla kullanılmak üzere bir yere kayıt ediliyormuş. Bu kelimelerin tutulduğu dosyayada dışardan erişmek mümkünmüş. (öyleymiş böyleymiş şöyleymiş :D )
 
 Her neyse bu dosyayanın yolu şurada...
 
