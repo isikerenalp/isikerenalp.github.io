@@ -159,6 +159,155 @@ Ve evet bu şekilde bizden isteneni bulmuş olduk :)
 
 ## Level 2
 
+    adb install UnCrackable-Level2.apk
+
+![0](/static/img/posts/owasp_uncrackable_android/2/0.png)
+
+Root detect gördüğümüze göre o zaman koduna bakıp nasıl bir kontrol yaptığına bakalım.
+
+![1](/static/img/posts/owasp_uncrackable_android/2/1.png)
+
+    sg.vantagepoint.uncrackable2.MainActivity
+
+MainActivity'ye girince şu satırları görüyoruz...
+
+```java
+import sg.vantagepoint.a.a;
+import sg.vantagepoint.a.b;
+
+...
+...
+
+private void a(String str) {
+    AlertDialog create = new AlertDialog.Builder(this).create();
+    create.setTitle(str);
+    create.setMessage("This is unacceptable. The app is now going to exit.");
+    create.setButton(-3, "OK", new DialogInterface.OnClickListener() {
+        /* class sg.vantagepoint.uncrackable2.MainActivity.AnonymousClass1 */
+
+        public void onClick(DialogInterface dialogInterface, int i) {
+            System.exit(0);
+        }
+    });
+    create.setCancelable(false);
+    create.show();
+}
+
+...
+
+    if (b.a() || b.b() || b.c()) {
+        a("Root detected!");
+    }
+    if (a.a(getApplicationContext())) {
+        a("App is debuggable!");
+    }
+```
+
+Demek ki kontroller başka bir yerde yapılıyor.
+
+    sg.vantagepoint.a.b
+
+![2](/static/img/posts/owasp_uncrackable_android/2/2.png)
+
+Level 1 'de bunlardan bahsetmiştik sanırım o yüzden çok üstünde durmayacağım. Frida ile bu kısmı hooklayıp kontrolü geçebiliriz. Bunun içinde gene en kısa yol olan system.exit() fonksiyonunu hooklayacağız
+
+```javascript
+Java.perform(function() {
+    console.log("[+]Root detect bypass !");
+    var detect = Java.use("java.lang.System");
+    detect.exit.implementation = function() {
+        console.log("system.exit func was called");
+    };
+});
+```
+
+    frida -l level2.js -U -f owasp.mstg.uncrackable2 --no-pause
+
+![3](/static/img/posts/owasp_uncrackable_android/2/3.png)
+
+Bu kısım zaten bildiğimiz birşeydi şimdi gelin doğrulama işlemini nasıl yapıyor onu anlayalım.
+
+    sg.vantagepoint.uncrackable2.MainActivity
+
+Tekrardan MainActivity içerisine baktığımız zaman...
+
+```java
+    static {
+        System.loadLibrary("foo");
+    }
+```
+
+Sisteme bir kütüphane yüklendiğini görüyoruz. Geri kalan kısımlarda göze çarpan birşey olmadığı için bunu incelemekte fayda var.
+
+Peki buna nerden ulaşacağız ? Dilerseniz apktool ile dilerseniz unzip veya sıkıştırılmış dosya açabileceğiniz herhangi bir program ile içindeki dosyaları dışarı çıkartın. `lib` klasörü altında kullandığınız mimarideki klasörü açın. Orada aradığımız `libfoo.so` dosyasını bulacağız.
+
+NOT : Bunlar nerden geldi ? Onun o olduğunu nerden anladık ? Bu şekilde kütüphane kullanmanın mantığı nedir ? gibi soru işaretleriniz varsa şuraya bakmanızı tavsiye ederim oldukça güzel bir kaynak. [https://ragingrock.com/AndroidAppRE/reversing_native_libs.html](https://ragingrock.com/AndroidAppRE/reversing_native_libs.html)
+
+Şimdi bu libfoo.so dosyamızı açalım.
+
+![4](/static/img/posts/owasp_uncrackable_android/2/4.png)
+
+Burda bizim bakacağımız `sym.java_sg_vantagepoint_uncrackable2_CodeCheck_bar` olacak. Bunu hemen decompile edip ne yaptığına anlamaya çalışalım. (Ghidra, radare2, cutter, rizin... bunlardan herhangi birini kullanarak decompile edebilirsiniz.)
+
+![5](/static/img/posts/owasp_uncrackable_android/2/5.png)
+
+Şimdi bu kısımda en baştan little endian olarak düşünerek çevirmeye başlarsak aslında ne ile karşılaştırdığını öğrenebiliyoruz.
+
+```python
+>>> chr(0x54)
+'T'
+>>> chr(0x68)
+'h'
+>>> chr(0x61)
+'a'
+>>> chr(0x6e)
+'n'
+>>> chr(0x6b)
+'k'
+>>> chr(0x73)
+'s'
+>>> chr(0x20)
+' '
+>>> chr(0x66)
+'f'
+>>> ...
+```
+
+Ancak bu işin kolay, zahmetsiz ve her zaman işe yaramayacak bir yolu. Biz frida ile yolumuza devam edip kütüphane içerisindeki bir fonksiyonu nasıl hooklayabiliriz ona bakalım.
+
+Öncelikli olarak `if(iVar2 == 0x17)` demiş. 0x17 => 23 sayısına eşittir. Yani girilen metnin 23 karakter uzunluğunda olması beklenmekte. Eğer bu koşul sağlanırsa `strncmp` fonksiyonu çalışarak bizim girdimiz ile beklenen girdiyi karşılaştıracak.
+
+`Interceptor.attach` kullanacağımız, ihtiyacımız olan şey bu. Bunun ne yaptığını da şurdan bakabilirsiniz [https://frida.re/docs/javascript-api/#interceptor](https://frida.re/docs/javascript-api/#interceptor). Ayrıca şuna da için bakmanızı öneririm [https://frida.re/docs/javascript-api/#thread](https://frida.re/docs/javascript-api/#thread). Lafı fazla uzatmadan hemen fonksiyonumuzu yazalım, zaten oldukça basit ve anlaşılır.
+
+```javascript
+Interceptor.attach(Module.findExportByName("libc.so", "strncmp"), {
+	onEnter: function (args) {
+		var param1 = Memory.readUtf8String(args[0]);
+		var param2 = Memory.readUtf8String(args[1]);
+		if(param1.startsWith("AAAA")) {
+			console.log("Secret is : " + param2);
+		}
+	},
+	onLeave: function (retval) {
+	}
+});
+
+Java.perform(function() {
+    console.log("[+]Root detect bypass !");
+    var detect = Java.use("java.lang.System");
+    detect.exit.implementation = function() {
+        console.log("system.exit func was called");
+    };
+});
+
+```
+
+23 tane `A` karakteri gönderelim...
+
+![6](/static/img/posts/owasp_uncrackable_android/2/6.png)
+
+`Thanks for all the fish` :)
+
 ## Level 3
 
 ### Kaynaklar

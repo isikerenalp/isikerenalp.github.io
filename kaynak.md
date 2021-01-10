@@ -102,6 +102,8 @@ permalink: /kaynak/
 
 - EN - [hardwear.io](https://www.youtube.com/c/hardweario/videos)
 
+- EN - [r2con](https://www.youtube.com/c/r2con/videos)
+
 ## Book
 
 - [Linux 101 Hacks - Türkçe Çevirisi](https://github.com/ozmu/Linuxta-101-Ipucu/blob/master/linuxta-101-ipucu.pdf)
