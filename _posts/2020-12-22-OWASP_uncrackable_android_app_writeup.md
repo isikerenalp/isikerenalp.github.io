@@ -310,8 +310,240 @@ Java.perform(function() {
 
 ## Level 3
 
+`Uncrackable Level 3` uygulamamızı telefonumuza yükledikten sonra açalım...
+
+![giris](/static/img/posts/owasp_uncrackable_android/3/0.png)
+
+Diğer seviyelerden farklı olarak sadece root detect değil aynı zamanda tampering detect mesajıda veriyor. Peki ya bu nedir ?
+
+`sg.vantagepoint.uncrackable3.MainActivity`
+
+```java
+if (RootDetection.checkRoot1() || RootDetection.checkRoot2() || RootDetection.checkRoot3() || IntegrityCheck.isDebuggable(getApplicationContext()) || tampered != 0) {
+    showDialog("Rooting or tampering detected.");
+}
+```
+
+`tampered` diye birşey var hemen dikkatimi o çekiyor. Hemen kullanıldığı yerlere bakalım.
+
+![1](/static/img/posts/owasp_uncrackable_android/3/1.png)
+
+`private native long baz();`
+
+İki if bloğunda da CRC checksum var. Bunlardan ilki libfoo.so dosyasının değerini strings.xml dosyasında kayıtlı olan değerle karşılaştırıyor. İkincisi ise classes.dex dosyasının değerini libfoo.so dosyası içerisinde bulunan değerle karşılaştırıyor.
+
+İnanmıyorum ben sana nerde karşılaştırıyor (:D olabilir böyle şeyler) derseniz eğer şu şekilde değerlere bakıp not edelim ve daha sonra logcat çıktısındaki değerlerle karşılaştıralım.
+
+![2](/static/img/posts/owasp_uncrackable_android/3/2.png)
+
+`private native long baz();`
+
+![3](/static/img/posts/owasp_uncrackable_android/3/3.png)
+
+`adb shell logcat`
+
+```bash
+...
+  3103  3103 V UnCrackable3: CRC[lib/arm64-v8a/libfoo.so] = 1608485481
+  3103  3103 V UnCrackable3: CRC[lib/x86_64/libfoo.so] = 2856060114
+  3103  3103 V UnCrackable3: CRC[lib/armeabi-v7a/libfoo.so] = 881998371
+  3103  3103 V UnCrackable3: CRC[lib/x86/libfoo.so] = 1618896864
+  3103  3103 V UnCrackable3: CRC[classes.dex] = 25235683
+...
+```
+
+Her neyse burası bu şekilde işte. Yolumuza devam edelim ve daha önce yazdığımız root detect bypass kodunu çalıştıralım.
+
+```js
+Java.perform(function() {
+    console.log("[+]Root detect bypass !");
+    var detect = Java.use("java.lang.System");
+    detect.exit.implementation = function() {
+        console.log("system.exit func was called");
+    };
+});
+```
+
+![4](/static/img/posts/owasp_uncrackable_android/3/4.png)
+
+Noldu processes crash oldu. Neden crash oldu ? Çünki program bizim frida çalıştırdığımızı çaktı ve crash ettirdi. İyide nerden anladı bunu ?  
+
+![5](/static/img/posts/owasp_uncrackable_android/3/5.png)
+
+NOT : `_INIT_0` isimli fonksiyona giderseniz eğer `pthread_create(&local_24,(pthread_attr_t *)0x0,FUN_00013080,(void *)0x0);` şöyle bir satırla karşılaşacaksınız.
+
+İşte tam olarak böyle bir fonksiyon sayesinde anladı. İyi güzel hoş da bunu nasıl atlatacaz 🤔 Öncelikle kısaca bunun nasıl çalıştığını anlamak lazım.
+
+`/proc/self/maps` okuyor ve bir değişkene (array) atıyor (0x200 yani 512). Daha sonra strstr() fonksiyonu ile bu dizenin içerisinde `frida` ve `xposed` var mı ona bakıyor. Eğer bulursa naptını zaten biliyoruz :D. Peki strstr fonksiyonunda ne var bi de ona bakalım.
+
+![6](/static/img/posts/owasp_uncrackable_android/3/6.png)
+
+Evet o zaman elimizdeki bilgileri kullanırsak...
+
+```js
+Java.perform(function() {
+    console.log("[+]Root detect bypass !");
+    var detect = Java.use("java.lang.System");
+    detect.exit.implementation = function() {
+        console.log("system.exit func was called");
+    };
+});
+
+Interceptor.attach(Module.findExportByName("libc.so", "strstr"), {
+	onEnter: function(args) {
+		this.frida = Boolean(0);
+		var haystack = Memory.readUtf8String(args[0]);
+		var needle = Memory.readUtf8String(args[1]);
+		if(haystack.indexOf("frida") != -1) {
+			this.frida = Boolean(1);
+		}
+	},
+	onLeave: function(retval) {
+			if(this.frida){
+				retval.replace(0);
+			}
+			return retval;
+		}
+});
+```
+
+şöyle bir script ortaya çıkacak.
+
+[https://frida.re/docs/javascript-api/#interceptor](https://frida.re/docs/javascript-api/#interceptor)
+
+![7](/static/img/posts/owasp_uncrackable_android/3/7.png)
+
+Artık uygulamamıza erişim sağlayabiliyoruz. Kodu okumaya devam edelim (bizden istenen değer nerden nasıl gidiyor acaba)
+
+`sg.vantagepoint.uncrackable3.MainActivity`
+
+```java
+...
+   private static final String xorkey = "pizzapizzapizzapizzapizz";
+   private native void init(byte[] bArr);
+...
+public void onCreate(Bundle bundle) {
+    verifyLibs();
+    init(xorkey.getBytes());
+...
+}
+...
+static {
+    System.loadLibrary("foo");
+}
+```
+
+Main fonksiyonumuzda bizim için önemli olan 3 nokta. Sondaki bizim yüklenen native library miz.  onCreate fonksiyonun içindeki verifyLibs() fonksiyonu az önce baktığımız root, tamper detect işlemini yapan fonksiyon. En üstte bir xorkey tanımlanmış. Adından da anlaşıldığı üzere demek ki bir xor işlemi var :D Ve son olarak da yüklediğimiz native library den gelen bir init fonksiyonu var ki ona da xorkey'i gönderiyoruz. Demek ki burda gene bi işimiz yok tekrardan ghidra'ya dönelim.
+
+![8](/static/img/posts/owasp_uncrackable_android/3/8.png)
+
+Bizden aldığı değeri ise bu sefer yerel bir değişkene kaydediyor. (baştaki o fun_00013250 fonksiyonu sanırım anti_debug için kullanılmakta)
+
+`strncpy((char *)&DAT_0001601c,__src,0x18);`
+
+Bu değişkeni (DAT_0001601c) biz tanımlamadık nerden geldi bu derseniz eğer tabi ki de `Java_sg_vantagepoint_uncrackable3_CodeCheck_bar` fonksiyonundan.
+
+![9](/static/img/posts/owasp_uncrackable_android/3/9.png)
+
+Burda bizim `xorkey` değişkeninde olan değer (pizzapizzapizzapizzapizz (artık puVar5 değişkeninde)) ile başka değer (local_40 değişkeninde olan değer) xor işlemine tutuluyor ve daha sonra bizden aldığı argüman ile karşılaştırıyor. (`FUN_00010fa0` fonksiyonu baya uzun o yüzden o kısmı eklemedim. İkinci xor değeri burdan geliyor). Biz de frida ile xor'da kullandığı ikinci değeri ortaya çıkaracağız. Sonra da manuel olarak kendimiz xor işlemini yapacağız ve istenen argümanı öğreneceğiz.
+
+Bunun için kütüphanemizin içerisindeki fonksiyonu hooklayan bir `hook_libs` fonksiyonu ekleyeceğim kodumuzun başına. Daha sonra native kütüphanemizin doğru şekilde yüklendiğinden emin olman için `Java.perform` içerisinde `sg.vantagepoint.uncrackable3.MainActivity` isimli arkadaşa ufak bir dokunuş yapıp devamında da yazmış olduğumuz fonksiyonu çağıracağım.
+
+```javascript
+function hook_libs() {
+	console.log("hook_libs func");
+	var offset_fun = 0x00000fa0;
+	var libfo = Module.findBaseAddress("libfoo.so");
+	var secret_fun = libfo.add(offset_fun);
+
+	Interceptor.attach( secret_fun, {
+		onEnter: function(args) {
+			this.secret = args[0];
+			console.log("onEnter()");
+		},
+		onLeave: function(retval) {
+			console.log("onLeave()");
+			console.log(Memory.readByteArray(this.secret, 24));
+		}
+	});
+}
+
+
+Java.perform(function() {
+
+    var detect = Java.use("java.lang.System");
+    detect.exit.implementation = function() {
+        console.log("system.exit func was called");
+    };
+
+    var mainfunc = Java.use("sg.vantagepoint.uncrackable3.MainActivity");
+    mainfunc.onStart.overload().implementation = function() {
+	console.log("sg.vantagepoint.uncrackable3.MainActivity was called");
+	var ret = this.onStart.overload().call(this);
+    };
+
+    hook_libs();
+
+});
+
+Interceptor.attach(Module.findExportByName("libc.so", "strstr"), {
+	onEnter: function(args) {
+		this.frida = Boolean(0);
+		var haystack = Memory.readUtf8String(args[0]);
+		var needle = Memory.readUtf8String(args[1]);
+		if(haystack.indexOf("frida") != -1) {
+			this.frida = Boolean(1);
+		}
+
+	},
+	onLeave: function(retval) {
+			if(this.frida){
+				retval.replace(0);
+			}
+			return retval;
+		}
+
+});
+```
+
+Şimdi burda şöyle bişi var. Bizim offset adresimiz ghidra üzerinde baktığımız zaman `00010fa0` ama bu yanlış fazlalık var. Asıl offset `0x00000fa0` olacak yani o aradaki `1` değerini `0` yapacağız. Eğer sizde adres farklı olursa değiştirmeyi unutmayın. (ben x86 üzerinde yapıyorum belki siz x86_x64 veya arm üzerinde vs yaparsanız benim gibi hata nerde diye kafayı yemeyin 😅)
+
+Konuyla alakalı detaylı bir anlatım mevcut, fonksiyonları vs daha okunaklı hale getirip güzel güzel anlatmış. Orayada bakmanızı tavsiye ederim. [https://enovella.github.io/android/reverse/2017/05/20/android-owasp-crackmes-level-3.html](https://enovella.github.io/android/reverse/2017/05/20/android-owasp-crackmes-level-3.html)
+
+![10](/static/img/posts/owasp_uncrackable_android/3/10.png)
+
+
+```python
+xorkey = "pizzapizzapizzapizzapizz"
+secret_key = "1d0811130f1749150d0003195a1d1315080e5a0017081314".decode("hex")
+
+def xorla(x, y):
+	return "".join(chr(ord(a) ^ ord(b)) for a,b in zip(x, y))
+
+mesaj = xorla(xorkey, secret_key)
+print(mesaj)
+```
+
+```bash
+$ python2.7 xor.py
+making owasp great again
+```
+
+![11](/static/img/posts/owasp_uncrackable_android/3/11.png)
+
+Evet böylelikle bu levelide tamamlamış olduk. Alternatif olarak bir yöntem daha söyleyeceğim :)
+
+![11](/static/img/posts/owasp_uncrackable_android/3/12.png)
+
+Hani o uzun diye atmadığım `FUN_00010fa0` fonksiyonu vardıya. Heh işte eğer onun en sonuna gidip param_1'i sırasıyla tersten okursanız eğer 1d081113... şeklinde gittiğini görebiliriz 😂 Yani aslında frida ile hooklamadan da bu şekilde statik analiz ile xor işleminde kullandığı ikinci key'i elde edebiliriz. Diğerini de zaten kodun içine yazmış. Eh telefonda rootlu olmasaydı aslında (o zaman tabi root detect bypass için frida kullanmak ve daha sonra frida detect için tekrar frida kullanmak zorunda kalmazdık) böyle statik analiz ile de çözülebilirmiş.
+
+Evet bu serinin son yazısıydı. Aslında level 4 'de geldi ama o biraz uzun o yüzden onu ayrı bir yazı yapacam (umarım :D).
+
+
 ### Kaynaklar
 
   - https://github.com/randorisec/workshops/tree/master/BSidesBudapest2020/Android
 
   - https://github.com/OWASP/owasp-mstg/tree/master/Crackmes
+
+  - https://enovella.github.io/android/reverse/2017/05/20/android-owasp-crackmes-level-3.html
