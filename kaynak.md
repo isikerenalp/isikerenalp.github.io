@@ -26,13 +26,33 @@ permalink: /kaynak/
 
 - EN - [http://www.fuzzysecurity.com/](http://www.fuzzysecurity.com/)
 
+- EN - [googleprojectzero](https://googleprojectzero.blogspot.com/)
+
 - TR - WEB - [https://www.diaryofinjector.com/](https://www.diaryofinjector.com/)
 
 - EN - WEB - [https://portswigger.net/web-security](https://portswigger.net/web-security)
 
-- EN - Mobile Security - [https://mobile-security.gitbook.io/mobile-security-testing-guide/](https://mobile-security.gitbook.io/mobile-security-testing-guide/)
+- EN - Mobile - [https://mobile-security.gitbook.io/mobile-security-testing-guide/](https://mobile-security.gitbook.io/mobile-security-testing-guide/)
 
-- EN - Mobile Security - [Android App Reverse Engineering 101](https://maddiestone.github.io/AndroidAppRE)
+- EN - Mobile - [Android App Reverse Engineering 101](https://maddiestone.github.io/AndroidAppRE)
+
+- EN - Android - [Android Trainings](https://github.com/enovella/androidtrainings)
+
+- EN - Android - [Android Kernel Exploitation](https://cloudfuzz.github.io/android-kernel-exploitation/)
+
+- EN - Reverse Engineering  - [hasherezade](https://hshrzd.wordpress.com/)
+
+- EN - Reverse Engineering - [https://connormcgarr.github.io/](https://connormcgarr.github.io/)
+
+- EN - Reverse Engineering - [https://blog.xpnsec.com/](https://blog.xpnsec.com/)
+
+- EN - Reverse Engineering - [https://blahcat.github.io/](https://blahcat.github.io/)
+
+- EN - Reverse Engineering - [https://h0mbre.github.io/](https://h0mbre.github.io/)
+
+- EN - Reverse Engineering - [https://j00ru.vexillium.org/](https://j00ru.vexillium.org/)
+
+- EN - Reverse Engineering - [Linux Rev 101](https://github.com/michalmalik/linux-re-101)
 
 - TR/EN - Reverse Engineering Blog List - [https://ttmo.re/kutuphane](https://ttmo.re/kutuphane)
 
@@ -42,23 +62,23 @@ permalink: /kaynak/
 
 - EN - Reverse Engineering - [https://github.com/onethawt/reverseengineering-reading-list](https://github.com/onethawt/reverseengineering-reading-list)
 
-- EN - ARM Security - [https://azeria-labs.com/](https://azeria-labs.com/)
+- EN - Reverse Engineering - [Linux Kernel Exp](https://github.com/xairy/linux-kernel-exploitation)
 
-- EN - IoT Security - [https://github.com/V33RU/IoTSecurity101](https://github.com/V33RU/IoTSecurity101)
+- EN - ARM - [https://azeria-labs.com/](https://azeria-labs.com/)
 
-- TR - Online Pentesting Lab - [https://priviahub.com/](https://priviahub.com/)
+- EN - ARM - [ARM Workshop](https://github.com/invictus1306/Workshop-BSidesMunich2018)
 
-- EN - Online Pentesting Lab - [https://www.hackthebox.eu/](https://www.hackthebox.eu/)
+- EN - ARM - [ARM-episodes](https://github.com/invictus1306/ARM-episodes)
 
-- EN - Exploit Writing Tutorial - [https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/](https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/)
+- EN - IoT - [https://github.com/V33RU/IoTSecurity101](https://github.com/V33RU/IoTSecurity101)
+
+- EN - Exploit Writing Tutorial - [https://www.corelan.be/](https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/)
 
 - EN - Heap Exploitation - [https://heap-exploitation.dhavalkapil.com/](https://heap-exploitation.dhavalkapil.com/)
 
-- EN - Reverse Engineering Challenge - [http://flare-on.com/](http://flare-on.com/) 
+- EN - GameHacking - [gamehacking.academy](https://gamehacking.academy/)
 
-- EN - Reverse Engineering  - [hasherezade](https://hshrzd.wordpress.com/) 
-
-- EN - Reverse Engineering Workshops - [malwareunicorn](https://malwareunicorn.org/#/workshops)
+- EN - Linux Kernel - [linux-insides](https://0xax.gitbooks.io/linux-insides/content/)
 
 ## Youtube Channel
 
@@ -103,6 +123,82 @@ permalink: /kaynak/
 - EN - [hardwear.io](https://www.youtube.com/c/hardweario/videos)
 
 - EN - [r2con](https://www.youtube.com/c/r2con/videos)
+
+- EN - [RPISEC](https://www.youtube.com/channel/UCY_laWYwPgB9eyxMdPjedcQ/videos)
+
+## CTF/Challenge/Workshop/Lab/Wargame
+
+- Reverse Engineering Workshops - [malwareunicorn](https://malwareunicorn.org/#/workshops)
+
+- Reverse Engineering Challenge - [flare-on](http://flare-on.com/)
+
+- Reverse Engineering Challenge - [crackmes](https://crackmes.one/lasts)
+
+- Malware Analysis - [RPISEC Malware](https://github.com/RPISEC/Malware)
+
+- CTF - [ctftime](https://ctftime.org/)
+
+- CTF - [picoCTF](https://picoctf.org/)
+
+- CTF - [BLE CTF](https://github.com/hackgnar/ble_ctf)
+
+- CTF - [Google CTF](https://capturetheflag.withgoogle.com/challenges)
+
+- CTF - [Hacker101](https://ctf.hacker101.com/)
+
+- CTF - [r2con2020-ctf-kernel](https://github.com/esanfelix/r2con2020-ctf-kernel) && [r2con2019-ctf-kernel](https://github.com/esanfelix/r2con2019-ctf-kernel)
+
+- GameHacking - [Pwn Adventure](http://pwnadventure.com/)
+
+- Android Challenge - [MOBISEC](https://challs.reyammer.io/)
+
+- Android Challenge - [DIVA](https://github.com/payatu/diva-android)
+
+- Android Challenge - [InsecureBankv2](https://github.com/dineshshetty/Android-InsecureBankv2)
+
+- Android Challenge - [InjuredAndroid](https://github.com/B3nac/InjuredAndroid)
+
+- Android Challenge - [OVAA](https://github.com/oversecured/ovaa)
+
+- Mobile Challenge - [MSTG-Hacking-Playground](https://github.com/OWASP/MSTG-Hacking-Playground)
+
+- Mobile Rev Challenge - [UnCrackable Mobile Apps](https://github.com/OWASP/owasp-mstg/tree/master/Crackmes)
+
+- Mobile CTF - [Awesome Mobile CTF](https://github.com/enovella/awesome-mobile-CTF)
+
+- IoT - [IoTGoat](https://github.com/OWASP/IoTGoat)
+
+- ARM - [DVAR](https://blog.exploitlab.net/2018/01/dvar-damn-vulnerable-arm-router.html)
+
+- Firmware - [DVRF](https://github.com/b1ack0wl/DVRF)
+
+- PWN - [Modern Binary Exploitation](https://github.com/RPISEC/MBE)
+
+- PWN - [pwn.college](https://pwn.college/)
+
+- PWN - [pwnable.kr](https://pwnable.kr/)
+
+- PWN - [pwnable.tw](https://pwnable.tw/challenge/)
+
+- PWN - [pwnable.xyz](https://pwnable.xyz/)
+
+- PWN - [exploit.education](http://exploit.education/)
+
+- PWN - [Educational Heap Exploitation](https://github.com/shellphish/how2heap)
+
+- Wargames - [overthewire](https://overthewire.org/wargames/)
+
+- Windows Kernel Exp - [HackSysExtremeVulnerableDriver](https://github.com/hacksysteam/HackSysExtremeVulnerableDriver)
+
+- Online Lab - [priviahub](https://priviahub.com/)
+
+- Online Lab - [hackthebox](https://www.hackthebox.eu/)
+
+- Online Lab - [tryhackme](https://tryhackme.com/)
+
+- Offline Lab - [vulnhub](https://www.vulnhub.com/)
+
+- Offline Lab - [pentesterlab](https://pentesterlab.com/exercises)
 
 ## Book
 
